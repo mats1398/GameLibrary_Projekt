@@ -13,10 +13,20 @@ namespace GameLibrary_Projekt
         public DateTime Erscheinungsdatum { get; set; }
 
         public string[] Plattform { get; set; }
-        public decimal Rating { get; set; }
-        public string Genre { get; set; }
+        public int Score { get; set; }
+        public string Review { get; set; }
 
-       
+        public override string ToString()
+        {
+            string plattform = "";
+            foreach (var item in Plattform)
+            {
+                plattform += $", {item}";
+            }
+            return $"Plattform: {plattform}";
+        }
+
+
 
     }
 }
