@@ -25,15 +25,16 @@ namespace GameLibrary_Projekt
             while ((line = reader.ReadLine()) != null)
             {
                 
-                line.Replace("\"", String.Empty);
-                line.Replace("\\", String.Empty);
+                line = line.Replace("\"", String.Empty);
+                //line.Replace("\\", String.Empty);
               
                 
-                column = line.Split(',');
+                column = line.Split(',' , '-');
                 Game game = new Game();
                 game.Score = int.Parse(column[column.Length -1]);
                 game.Review = column[column.Length - 2];
-                game.Titel = column[column.Length - 3];
+                
+                game.Titel = column[column.Length - 3].Replace("Review", "");
                 game.Erscheinungsdatum = GetRandomDate();
                 int j = 0;
                 game.Plattform = new string[column.Length - 3];
@@ -44,10 +45,13 @@ namespace GameLibrary_Projekt
                     j++;
                 }
                 list.Add(game);
+                
             }
+           
 
 
-            
+
+
 
             reader.Close();
 
@@ -61,10 +65,21 @@ namespace GameLibrary_Projekt
                 int randomDay = rnd.Next(1, 31);
 
                 DateTime randomDate = new DateTime(randomYear, randomMonth, randomDay);
-                Console.WriteLine(randomDate);
+                
 
                 return randomDate;
             }
+        }
+        public Game[] GetAllGames()
+        {
+            Game[] array = new Game[list.Count];
+
+            for (int i = 0; i < list.Count; i++)
+            {
+
+                array[i] = list[i];
+            }
+            return array;
         }
     }
 }

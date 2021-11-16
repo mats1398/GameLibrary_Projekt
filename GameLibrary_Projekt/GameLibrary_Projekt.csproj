@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -73,6 +76,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PersonallyGameList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -98,6 +102,27 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictograms\search.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ExampleGameImages\Spiel1.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictograms\Person.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictograms\add.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ExampleGameImages\Bild4.jpg" />
+    <Resource Include="ExampleGameImages\Bild5.jpg" />
+    <Resource Include="ExampleGameImages\Bild6.jpg" />
+    <Resource Include="ExampleGameImages\Bild7.jpg" />
+    <Resource Include="ExampleGameImages\Spiel2.jpg" />
+    <Resource Include="ExampleGameImages\Spiel3.jpg" />
+    <Resource Include="ExampleGameImages\Spiel4.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

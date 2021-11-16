@@ -23,7 +23,7 @@ namespace GameLibrary_Projekt
             {
                 plattform += $", {item}";
             }
-            return $"Plattform: {plattform}";
+            return $"Titel: {Titel}";
         }
 
 
