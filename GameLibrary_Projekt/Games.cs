@@ -6,9 +6,12 @@ namespace GameLibrary_Projekt
 {
     public class Games
     {
-        List<Game> list = new List<Game>();
-        public Games(string pfad)
+        public static List<Game> gamelist { get; set; } = GetGames();
+         
+        public static List<Game> GetGames()
         {
+            var list = new List<Game>();
+            string pfad = @"C:\Users\Mats Ramsl\Desktop\Lokale Daten\Games.csv";
             File.ReadAllLines(pfad);
             var reader = new StreamReader(pfad);
             string line =  reader.ReadLine();
@@ -45,8 +48,11 @@ namespace GameLibrary_Projekt
                     j++;
                 }
                 list.Add(game);
+
+
                 
             }
+            return list;
            
 
 
@@ -62,7 +68,7 @@ namespace GameLibrary_Projekt
 
                 int randomYear = rnd.Next(1995, DateTime.Now.Year + 10);
                 int randomMonth = rnd.Next(1, 12);
-                int randomDay = rnd.Next(1, 31);
+                int randomDay = rnd.Next(1, 28);
 
                 DateTime randomDate = new DateTime(randomYear, randomMonth, randomDay);
                 
@@ -72,12 +78,12 @@ namespace GameLibrary_Projekt
         }
         public Game[] GetAllGames()
         {
-            Game[] array = new Game[list.Count];
+            Game[] array = new Game[gamelist.Count];
 
-            for (int i = 0; i < list.Count; i++)
+            for (int i = 0; i < gamelist.Count; i++)
             {
 
-                array[i] = list[i];
+                array[i] = gamelist[i];
             }
             return array;
         }

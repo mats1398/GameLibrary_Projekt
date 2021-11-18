@@ -6,45 +6,52 @@
         xmlns:local="clr-namespace:GameLibrary_Projekt"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        Background="Transparent" AllowsTransparency="True"   WindowStyle="None" WindowStartupLocation="CenterScreen"  ResizeMode="CanResizeWithGrip"> 
-    <Border BorderThickness="0" CornerRadius="35" MouseDown="MoveApp" Background="DarkGray">
-    <DockPanel>
-        <StackPanel DockPanel.Dock="Top" Height="50" Margin="50,0,0,0"  Orientation="Horizontal">
-                <TextBox Text="Spiel suchen..." VerticalAlignment="Center" Margin="10" Width="120" Background="LightGray"/>
-                <Image Source="/Pictograms/search.png" Height="20" Width="20"  Margin="10"/>
+        Background="Transparent" AllowsTransparency="True"   WindowStyle="None" WindowStartupLocation="CenterScreen"  ResizeMode="CanResizeWithGrip">
+    <Window.DataContext>
+        <local:Games/>
+    </Window.DataContext>
+    <Border BorderThickness="0" CornerRadius="35" MouseDown="MoveApp" Background="DarkGray" MinHeight="450" MinWidth="800">
+        <DockPanel>
+            <StackPanel DockPanel.Dock="Top" Height="50" Margin="50,0,0,0"  Orientation="Horizontal">
+                <TextBlock Text="Spiel suchen:" VerticalAlignment="Center"/>
+                <TextBox Name ="Search" VerticalAlignment="Center" Margin="5,10" Width="120" Background="LightGray"/>
+                <Button Height="30">
+                    <Image Source="/Pictograms/search.png" Height="20"  Margin="10,0" Width="22" />
+                </Button>
+
                 <TextBlock Text="Filter1" VerticalAlignment="Center" Margin="100,0,0,0"/>
                 <TextBlock Text="Filter2" VerticalAlignment="Center" Margin="20"/>
 
                 <TextBlock Text="Filter3" VerticalAlignment="Center" Margin="20"/>
-            
-                
 
 
-                <Button Content="Anwenden" Background="Transparent"  Height="30" HorizontalAlignment="Right" Margin="200,0" Click="OnCLick"/>
+
+
+                <Button Content="Anwenden" Background="Transparent"  Height="30" HorizontalAlignment="Right" Margin="150,0" Click="OnCLick"/>
+                <CheckBox Content="CheckBox"/>
+                <Viewbox Width="100"/>
 
 
             </StackPanel>
             <StackPanel Name="Dock" DockPanel.Dock="Left"  Width="50" Margin="0,-50,0,0"  >
-                <TextBlock Height="57" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Height="57" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Red">
                    <LineBreak/> Your <LineBreak/> Logo
                 </TextBlock>
                 <Button DockPanel.Dock="Top" Height="178" Background="Transparent" >
-                    <Image Source="/Pictograms/Person.png" />
+                    <Image Source="/Pictograms/Person.png" Height="38" Width="40" />
 
                 </Button>
                 <Button DockPanel.Dock="Bottom" Background="Transparent" Height="178">
-                    <Image Source="/Pictograms/add.png" />
+                    <Image Source="/Pictograms/add.png" Height="38" Width="40" />
 
                 </Button>
-                
-            </StackPanel>
-            <StackPanel>
-                <TextBlock Name="Text" Background="LightBlue" Height=" 30"/>
-            </StackPanel>
-            <ListView>
-                
-            </ListView>
-        <!--<ListView Background="Green" Name="GameLibrary" >
+
+            </StackPanel >
+            <Grid>
+                <ListView Name="listview" ItemsSource="{Binding gamelist}" DisplayMemberPath="Titel" Background="Transparent" Margin="0,0,0.4,26" />
+            </Grid>
+
+            <!--<ListView Background="Green" Name="GameLibrary" >
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <UniformGrid Columns="5" HorizontalAlignment="Stretch"/>
@@ -59,6 +66,6 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>-->
-    </DockPanel>
+        </DockPanel>
     </Border>
 </Window>

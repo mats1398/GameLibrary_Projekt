@@ -9,14 +9,15 @@ namespace GameLibrary_Projekt
     /// </summary>
     public partial class MainWindow : Window
     {
-        Game[] games;
+        Game[] gameslist;
+        
         public MainWindow()
         {
             InitializeComponent();
-            Games g = new Games(@"C:\Users\Mats Ramsl\Desktop\Lokale Daten\Games.csv");
-             games =   g.GetAllGames();
+            Games g = new Games();
+             gameslist =   g.GetAllGames();
 
-            foreach (Game game in games)
+            foreach (Game game in gameslist)
             {
                 
                 
@@ -44,7 +45,9 @@ namespace GameLibrary_Projekt
 
         private void OnCLick(object sender, RoutedEventArgs e)
         {
-            Text.Text = games[0].Titel; 
+            //Text.Text = games[0].Titel; 
+            listview.SelectedItem=gameslist.ToString();
         }
     }
+
 }
