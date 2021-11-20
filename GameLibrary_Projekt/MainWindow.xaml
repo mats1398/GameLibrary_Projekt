@@ -6,51 +6,45 @@
         xmlns:local="clr-namespace:GameLibrary_Projekt"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        Background="Transparent" AllowsTransparency="True"   WindowStyle="None" WindowStartupLocation="CenterScreen"  ResizeMode="CanResizeWithGrip">
+        Background="Transparent" AllowsTransparency="True"   WindowStyle="None" WindowStartupLocation="CenterScreen"  ResizeMode="NoResize">
     <Window.DataContext>
         <local:Games/>
     </Window.DataContext>
-    <Border BorderThickness="0" CornerRadius="35" MouseDown="MoveApp" Background="DarkGray" MinHeight="450" MinWidth="800">
+    <Border BorderThickness="0" CornerRadius="19" MouseDown="MoveApp" Background="DarkGray" MinHeight="450" MinWidth="800">
         <DockPanel>
-            <StackPanel DockPanel.Dock="Top" Height="50" Margin="50,0,0,0"  Orientation="Horizontal">
-                <TextBlock Text="Spiel suchen:" VerticalAlignment="Center"/>
-                <TextBox Name ="Search" VerticalAlignment="Center" Margin="5,10" Width="120" Background="LightGray"/>
-                <Button Height="30">
-                    <Image Source="/Pictograms/search.png" Height="20"  Margin="10,0" Width="22" />
-                </Button>
-
-                <TextBlock Text="Filter1" VerticalAlignment="Center" Margin="100,0,0,0"/>
-                <TextBlock Text="Filter2" VerticalAlignment="Center" Margin="20"/>
-
-                <TextBlock Text="Filter3" VerticalAlignment="Center" Margin="20"/>
-
-
-
-
-                <Button Content="Anwenden" Background="Transparent"  Height="30" HorizontalAlignment="Right" Margin="150,0" Click="OnCLick"/>
-                <CheckBox Content="CheckBox"/>
-                <Viewbox Width="100"/>
-
-
-            </StackPanel>
-            <StackPanel Name="Dock" DockPanel.Dock="Left"  Width="50" Margin="0,-50,0,0"  >
-                <TextBlock Height="57" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="Red">
+            <DockPanel Background="DarkBlue" DockPanel.Dock="Top" Height="23"  >
+                <!--<TextBlock  HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Height="27" >
                    <LineBreak/> Your <LineBreak/> Logo
-                </TextBlock>
-                <Button DockPanel.Dock="Top" Height="178" Background="Transparent" >
-                    <Image Source="/Pictograms/Person.png" Height="38" Width="40" />
-
+                </TextBlock>-->
+                <Button  DockPanel.Dock="Right" Width="19" Height="23"  BorderThickness="0" Background="Transparent" FontSize="30" VerticalAlignment="Bottom"   Click="ShutDown"  Cursor="Hand" RenderTransformOrigin="0.474,0.362">
+                    <TextBlock Text="X" VerticalAlignment="Center" Height="42"/>
                 </Button>
-                <Button DockPanel.Dock="Bottom" Background="Transparent" Height="178">
-                    <Image Source="/Pictograms/add.png" Height="38" Width="40" />
-
+                <Button  DockPanel.Dock="Right" Width="33" Height="23"  BorderThickness="0" Background="Transparent" FontSize="12"     Click="Minimize" Cursor="Hand" Margin="750,0,0,0" >
+                    
+                    <TextBlock Text="-" Width="12" FontWeight="Bold" FontSize="30" Height="42" VerticalAlignment="Center"/>
+                   
                 </Button>
+            </DockPanel>
+            <StackPanel Name="Dock" DockPanel.Dock="Left"  Width="114"   >
+
+                <RadioButton Height="80" Content="Search Games" IsChecked="True" Style="{StaticResource SideBarButton}"/>
+                <RadioButton Height="80" Content="Your Games"  Style="{StaticResource SideBarButton}"/>
+
+
+
+
+               
 
             </StackPanel >
             <Grid>
-                <ListView Name="listview" ItemsSource="{Binding gamelist}" DisplayMemberPath="Titel" Background="Transparent" Margin="0,0,0.4,26" />
+                <StackPanel x:Name="ChangeUserControl" Margin="0,0,0.4,26"/>
+
             </Grid>
 
+
+            <!--<DataGrid Name="listview" ItemsSource="{Binding gamelist}" DisplayMemberPath="Titel" Background="LightGray" Margin="0,0,0.4,26" RowBackground="LightGray" AlternatingRowBackground="Wheat"  >
+
+            </DataGrid>-->
             <!--<ListView Background="Green" Name="GameLibrary" >
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>

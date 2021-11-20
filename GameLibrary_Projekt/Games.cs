@@ -7,9 +7,12 @@ namespace GameLibrary_Projekt
     public class Games
     {
         public static List<Game> gamelist { get; set; } = GetGames();
-         
+       
+
         public static List<Game> GetGames()
         {
+           
+
             var list = new List<Game>();
             string pfad = @"C:\Users\Mats Ramsl\Desktop\Lokale Daten\Games.csv";
             File.ReadAllLines(pfad);
@@ -40,11 +43,10 @@ namespace GameLibrary_Projekt
                 game.Titel = column[column.Length - 3].Replace("Review", "");
                 game.Erscheinungsdatum = GetRandomDate();
                 int j = 0;
-                game.Plattform = new string[column.Length - 3];
                 for (int i = column.Length-4 ; i >= 0; i--)
                 {
-                    
-                    game.Plattform[j] = column[i];
+                    string platform = column[i].Replace(" ", String.Empty);
+                    game.Plattform += platform;
                     j++;
                 }
                 list.Add(game);
@@ -52,29 +54,31 @@ namespace GameLibrary_Projekt
 
                 
             }
-            return list;
-           
-
-
-
-
-
             reader.Close();
+            return list;
 
-            DateTime GetRandomDate()
-            {
 
-                Random rnd = new Random();
 
-                int randomYear = rnd.Next(1995, DateTime.Now.Year + 10);
-                int randomMonth = rnd.Next(1, 12);
-                int randomDay = rnd.Next(1, 28);
+           
+            
 
-                DateTime randomDate = new DateTime(randomYear, randomMonth, randomDay);
-                
 
-                return randomDate;
-            }
+
+
+
+        }
+        public static DateTime GetRandomDate()
+        {
+            Random rnd = new Random();
+
+            int randomYear = rnd.Next(1995, DateTime.Now.Year + 10);
+            int randomMonth = rnd.Next(1, 12);
+            int randomDay = rnd.Next(1, 28);
+
+            DateTime randomDate = new DateTime(randomYear, randomMonth, randomDay);
+
+
+            return randomDate;
         }
         public Game[] GetAllGames()
         {

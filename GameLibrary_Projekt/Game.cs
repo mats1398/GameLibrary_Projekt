@@ -12,7 +12,7 @@ namespace GameLibrary_Projekt
         public string Titel { get; set; }
         public DateTime Erscheinungsdatum { get; set; }
 
-        public string[] Plattform { get; set; }
+        public string Plattform { get; set; }
         public int Score { get; set; }
         public string Review { get; set; }
 

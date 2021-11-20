@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using GameLibrary_Projekt.UserControls;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
 
@@ -9,26 +10,14 @@ namespace GameLibrary_Projekt
     /// </summary>
     public partial class MainWindow : Window
     {
-        Game[] gameslist;
         
         public MainWindow()
         {
+            
             InitializeComponent();
-            Games g = new Games();
-             gameslist =   g.GetAllGames();
+            SearchingGamesView searchView = new SearchingGamesView();
+            ChangeUserControl.Children.Add(searchView);
 
-            foreach (Game game in gameslist)
-            {
-                
-                
-                System.Console.WriteLine(game.ToString());
-                
-                
-            }
-            
-
-            System.Console.ReadLine();
-            
 
 
         }
@@ -46,7 +35,24 @@ namespace GameLibrary_Projekt
         private void OnCLick(object sender, RoutedEventArgs e)
         {
             //Text.Text = games[0].Titel; 
-            listview.SelectedItem=gameslist.ToString();
+           
+        }
+        private void Minimize(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
+        }
+        private void ShutDown(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Wollen Sie die App wirklich schließen?", "Programm schließen", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+            {
+               
+                
+                this.Close(); 
+
+            }
+
+
+
         }
     }
 

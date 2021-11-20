@@ -1,0 +1,38 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:GameLibrary_Projekt.Pattern">
+
+    <Style BasedOn="{StaticResource {x:Type ToggleButton}}" TargetType= "{x:Type RadioButton}" x:Key="SideBarButton">
+    <Setter Property="Template">
+        <Setter.Value>
+            <ControlTemplate TargetType="RadioButton">
+                <Grid Background="{TemplateBinding Background}">
+                    <TextBlock Text="{TemplateBinding Property=Content }" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Grid>
+            </ControlTemplate>
+        </Setter.Value>
+    </Setter>
+
+    <Setter Property="Background" Value="Transparent" />
+
+
+    <Setter Property="FontSize" Value="17"/>
+
+
+    <Style.Triggers>
+
+        <Trigger Property="IsMouseOver" Value="True">
+            <Setter Property="Background" Value="#5882FA"/>
+        </Trigger>
+        <Trigger Property="IsChecked" Value="True">
+            <Setter Property="Background" Value="#2E64FE"/>
+        </Trigger>
+        <Trigger Property="IsMouseOver" Value="True">
+            <Setter Property="Cursor" Value="Hand"/>
+        </Trigger>
+
+    </Style.Triggers>
+    </Style>
+
+
+</ResourceDictionary>

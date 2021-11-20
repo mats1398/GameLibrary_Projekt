@@ -4,6 +4,13 @@
              xmlns:local="clr-namespace:GameLibrary_Projekt"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Pattern\SideBarButton.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
