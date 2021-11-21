@@ -14,7 +14,7 @@ namespace GameLibrary_Projekt
            
 
             var list = new List<Game>();
-            string pfad = @"C:\Users\Mats Ramsl\Desktop\Lokale Daten\Games.csv";
+            string pfad = @"Games.csv";
             File.ReadAllLines(pfad);
             var reader = new StreamReader(pfad);
             string line =  reader.ReadLine();
@@ -77,7 +77,7 @@ namespace GameLibrary_Projekt
         public static List<Game> GetPersonallyGames()
         {
             var list = new List<Game>();
-            string pfad = @"C:\Users\Mats Ramsl\Desktop\Lokale Daten\SavedGames.csv";
+            string pfad = @"SavedGames.csv";
             File.ReadAllLines(pfad);
             var reader = new StreamReader(pfad);
             string line = reader.ReadLine();

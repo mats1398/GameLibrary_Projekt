@@ -125,14 +125,14 @@
 
                 </StackPanel>
 
-                    <DataGrid ItemsSource="{Binding PersonallyList}" Background="Transparent" RowBackground="Transparent" Margin="0,0,0,20" FontSize="12" GridLinesVisibility="None"  >
+                    <DataGrid ItemsSource="{Binding PersonallyList}" Background="Transparent" RowBackground="Transparent" Margin="0,0,0,20" FontSize="12" GridLinesVisibility="None" RowEditEnding="Personal_RowEditEnding" >
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Gametitel" Binding="{Binding Titel}" />
-                                <DataGridCheckBoxColumn Header="IsPublished" Binding="{Binding IsPublished}" IsReadOnly="True"/>
-                                <DataGridTextColumn Header="ReleaseDate" Binding="{Binding ReleaseDate, StringFormat=dd/M/yyyy}" />
-                                <DataGridTextColumn Header="Platform" Binding="{Binding Plattform}"/>
-                                <DataGridTextColumn Header="Score" Binding="{Binding Score}"/>
-                                <DataGridTextColumn Header="Review" Binding="{Binding Review}"/>
+                            <DataGridTextColumn Header="Gametitel" Binding="{Binding Titel, UpdateSourceTrigger=PropertyChanged}" />
+                                <DataGridCheckBoxColumn Header="IsPublished" Binding="{Binding IsPublished, UpdateSourceTrigger=PropertyChanged}"  />
+                                <DataGridTextColumn Header="ReleaseDate" Binding="{Binding ReleaseDate, StringFormat=dd/M/yyyy, UpdateSourceTrigger=PropertyChanged}" />
+                                <DataGridTextColumn Header="Platform" Binding="{Binding Plattform, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Score" Binding="{Binding Score, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Review" Binding="{Binding Review, UpdateSourceTrigger=PropertyChanged}"/>
                         </DataGrid.Columns>
                         <!--Datepicker einbauen, um das Datum einzupflegen, wann das Spiel gespielt wurde-->
                     </DataGrid>

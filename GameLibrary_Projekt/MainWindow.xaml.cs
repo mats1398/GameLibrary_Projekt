@@ -74,6 +74,18 @@ namespace GameLibrary_Projekt
             GridSearch.Visibility = Visibility.Collapsed;
             Personal.Visibility = Visibility.Visible;
         }
+
+        private void Personal_RowEditEnding(object sender, System.Windows.Controls.DataGridRowEditEndingEventArgs e)
+        {
+            Game newgame = (Game)e.Row.DataContext;
+            AddPersonalGame(newgame);
+        }
+        private void AddPersonalGame(Game game)
+        {
+            string pfad = "SavedGames.csv";
+            string newLine = $"{game.Plattform}, {game.Titel}, {game.Review},{game.Score} \n ";    // Console,GameName,Review,Score
+            File.AppendAllText(pfad, newLine);
+        }
     }
 
 }
