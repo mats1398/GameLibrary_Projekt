@@ -10,12 +10,13 @@ namespace GameLibrary_Projekt
     {
         // Eigenschaften
         public string Titel { get; set; }
-        public DateTime Erscheinungsdatum { get; set; }
-
+        public DateTime ReleaseDate { get; set; }
+        public string GameDetails { get; set; }
         public string Plattform { get; set; }
         public int Score { get; set; }
         public string Review { get; set; }
-
+        public string Image { get; set; }
+        public bool IsPublished { get; set; }
         public override string ToString()
         {
             string plattform = "";

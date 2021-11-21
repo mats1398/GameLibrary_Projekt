@@ -58,8 +58,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="UserControls\PersonallyGameList.xaml.cs">
-      <DependentUpon>PersonallyGameList.xaml</DependentUpon>
+    <Compile Include="UserControls\PersonallyGames.xaml.cs">
+      <DependentUpon>PersonallyGames.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\SearchingGamesView.xaml.cs">
       <DependentUpon>SearchingGamesView.xaml</DependentUpon>
@@ -84,7 +84,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\PersonallyGameList.xaml">
+    <Page Include="UserControls\PersonallyGames.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -94,7 +94,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PersonallyGameList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -116,6 +115,9 @@
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="SavedGames.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -140,7 +142,6 @@
     <Resource Include="ExampleGameImages\Bild7.jpg" />
     <Resource Include="ExampleGameImages\Bild2.jpg" />
     <Resource Include="ExampleGameImages\Bild3.jpg" />
-    <Resource Include="ExampleGameImages\Bild8.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

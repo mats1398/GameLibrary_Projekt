@@ -10,6 +10,7 @@
     <Window.DataContext>
         <local:Games/>
     </Window.DataContext>
+    
     <Border BorderThickness="0" CornerRadius="19" MouseDown="MoveApp" Background="DarkGray" MinHeight="450" MinWidth="800">
         <DockPanel>
             <DockPanel Background="DarkBlue" DockPanel.Dock="Top" Height="23"  >
@@ -25,10 +26,10 @@
                    
                 </Button>
             </DockPanel>
-            <StackPanel Name="Dock" DockPanel.Dock="Left"  Width="114"   >
+            <StackPanel Name="Dock" DockPanel.Dock="Left"  Width="114" Margin="0,0,0,100"  Background="LightBlue" >
 
-                <RadioButton Height="80" Content="Search Games" IsChecked="True" Style="{StaticResource SideBarButton}"/>
-                <RadioButton Height="80" Content="Your Games"  Style="{StaticResource SideBarButton}"/>
+                <RadioButton Height="80" Content="Search Games" IsChecked="True" Style="{StaticResource SideBarButton}" Click="ChangeToSearchGames" />
+                <RadioButton Height="80" Content="Your Games"  Style="{StaticResource SideBarButton}"  Click="ChangeToPersonalGames" />
 
 
 
@@ -36,11 +37,107 @@
                
 
             </StackPanel >
-            <Grid>
-                <StackPanel x:Name="ChangeUserControl" Margin="0,0,0.4,26"/>
+        
+            <Grid x:Name="GridSearch" Visibility="Collapsed">
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" Height="50" Margin="10"  Orientation="Horizontal">
+                        <TextBlock Text="Spiel suchen:" VerticalAlignment="Center" Margin="0,17" Width="72"/>
+                        <TextBox Name ="Search" VerticalAlignment="Center" Margin="5,10" Width="120" Background="LightGray"/>
+                        <Button Height="30">
+                            <Image Source="/Pictograms/search.png" Height="20"  Margin="10,0" Width="22" />
+                        </Button>
 
+                        <TextBlock Text="Filter1" VerticalAlignment="Center" Margin="100,0,0,0"/>
+                        <TextBlock Text="Filter2" VerticalAlignment="Center" Margin="20"/>
+
+                        <TextBlock Text="Filter3" VerticalAlignment="Center" Margin="20"/>
+
+
+
+
+                        <Button Content="Anwenden" Background="Transparent"  Height="30" HorizontalAlignment="Right" Margin="50,0" Click="OnCLick"/>
+
+                        <Viewbox Width="100"/>
+
+
+                    </StackPanel>
+
+                    <DataGrid ItemsSource="{Binding gamelist}" Background="Transparent" RowBackground="Transparent" Margin="0,0,0,20" FontSize="12" AutoGenerateColumns="False" GridLinesVisibility="None" AreRowDetailsFrozen="True">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Image">
+                                
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                        <Image Source="{Binding Path=Bild1.jpg}" Width="20" Height="20"/>
+
+
+
+
+                                    </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                              
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Gametitel" Binding="{Binding Titel}" />
+                            <DataGridCheckBoxColumn Header="IsPublished" Binding="{Binding IsPublished}" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="ReleaseDate" Binding="{Binding ReleaseDate, StringFormat=dd/M/yyyy}" />
+                            <DataGridTextColumn Header="Platform" Binding="{Binding Plattform}"/>
+                            <DataGridTextColumn Header="Score" Binding="{Binding Score}"/>
+                            <DataGridTextColumn Header="Review" Binding="{Binding Review}"/>
+
+
+
+                        </DataGrid.Columns>
+                        <DataGrid.RowDetailsTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="Game-Details: " FontSize="25" FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding GameDetails}"/>
+                                    <TextBlock/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGrid.RowDetailsTemplate>
+                    </DataGrid>
+                </DockPanel>
             </Grid>
+            
+            
+            <Grid x:Name="Personal" Visibility="Visible">
+                <DockPanel>
+                <StackPanel DockPanel.Dock="Top" Height="50" Margin="10"  Orientation="Horizontal">
+                    <TextBlock Text="Spiel suchen:" VerticalAlignment="Center" Margin="0,17" Width="72"/>
+                    <TextBox Name ="SearchPersonally" VerticalAlignment="Center" Margin="5,10" Width="120" Background="LightGray"/>
+                    <Button Height="30">
+                        <Image Source="/Pictograms/search.png" Height="20"  Margin="10,0" Width="22" />
+                    </Button>
 
+                    <TextBlock Text="Filter1" VerticalAlignment="Center" Margin="100,0,0,0"/>
+                    <TextBlock Text="Filter2" VerticalAlignment="Center" Margin="20"/>
+
+                    <TextBlock Text="Filter3" VerticalAlignment="Center" Margin="20"/>
+
+
+
+
+                    <Button Content="Anwenden" Background="Transparent"  Height="30" HorizontalAlignment="Right" Margin="50,0" Click="OnCLick"/>
+
+                    <Viewbox Width="100"/>
+
+
+                </StackPanel>
+
+                    <DataGrid ItemsSource="{Binding PersonallyList}" Background="Transparent" RowBackground="Transparent" Margin="0,0,0,20" FontSize="12" GridLinesVisibility="None"  >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Gametitel" Binding="{Binding Titel}" />
+                                <DataGridCheckBoxColumn Header="IsPublished" Binding="{Binding IsPublished}" IsReadOnly="True"/>
+                                <DataGridTextColumn Header="ReleaseDate" Binding="{Binding ReleaseDate, StringFormat=dd/M/yyyy}" />
+                                <DataGridTextColumn Header="Platform" Binding="{Binding Plattform}"/>
+                                <DataGridTextColumn Header="Score" Binding="{Binding Score}"/>
+                                <DataGridTextColumn Header="Review" Binding="{Binding Review}"/>
+                        </DataGrid.Columns>
+                        <!--Datepicker einbauen, um das Datum einzupflegen, wann das Spiel gespielt wurde-->
+                    </DataGrid>
+                </DockPanel>
+            </Grid>
 
             <!--<DataGrid Name="listview" ItemsSource="{Binding gamelist}" DisplayMemberPath="Titel" Background="LightGray" Margin="0,0,0.4,26" RowBackground="LightGray" AlternatingRowBackground="Wheat"  >
 

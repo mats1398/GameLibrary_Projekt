@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace GameLibrary_Projekt.UserControls
 {
     /// <summary>
-    /// Interaktionslogik für PersonallyGameList.xaml
+    /// Interaktionslogik für PersonallyGames.xaml
     /// </summary>
-    public partial class PersonallyGameList : UserControl
+    public partial class PersonallyGames : UserControl
     {
-        public PersonallyGameList()
+        public PersonallyGames()
         {
             InitializeComponent();
         }

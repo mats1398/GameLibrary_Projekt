@@ -15,8 +15,12 @@ namespace GameLibrary_Projekt
         {
             
             InitializeComponent();
-            SearchingGamesView searchView = new SearchingGamesView();
-            ChangeUserControl.Children.Add(searchView);
+            //ChangeUserControl.Children.Clear();
+            //PersonallyGames personal = new PersonallyGames();
+           
+            //ChangeUserControl.Children.Add(personal);
+            //SearchingGamesView searchView = new SearchingGamesView();
+            //ChangeUserControl.Children.Add(searchView);
 
 
 
@@ -53,6 +57,22 @@ namespace GameLibrary_Projekt
 
 
 
+        }
+
+        private void ChangeToSearchGames(object sender, RoutedEventArgs e)
+        {
+            Personal.Visibility = Visibility.Collapsed;
+            GridSearch.Visibility = Visibility.Visible; 
+            
+        //    ChangeUserControl.Children.Clear();
+        //    SearchingGamesView searchView = new SearchingGamesView();
+        //    ChangeUserControl.Children.Add(searchView);
+        }
+
+        private void ChangeToPersonalGames(object sender, RoutedEventArgs e)
+        {
+            GridSearch.Visibility = Visibility.Collapsed;
+            Personal.Visibility = Visibility.Visible;
         }
     }
 

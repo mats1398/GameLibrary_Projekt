@@ -7,7 +7,7 @@ namespace GameLibrary_Projekt
     public class Games
     {
         public static List<Game> gamelist { get; set; } = GetGames();
-       
+        public static List<Game> PersonallyList { get; set; } = GetPersonallyGames();
 
         public static List<Game> GetGames()
         {
@@ -41,7 +41,11 @@ namespace GameLibrary_Projekt
                 game.Review = column[column.Length - 2];
                 
                 game.Titel = column[column.Length - 3].Replace("Review", "");
-                game.Erscheinungsdatum = GetRandomDate();
+                game.ReleaseDate = GetRandomDate();
+                if (game.ReleaseDate <= DateTime.Now)
+                {
+                    game.IsPublished = true;
+                }
                 int j = 0;
                 for (int i = column.Length-4 ; i >= 0; i--)
                 {
@@ -49,8 +53,11 @@ namespace GameLibrary_Projekt
                     game.Plattform += platform;
                     j++;
                 }
+                game.Image = GetRandomImagePath();
+                game.GameDetails = "Hallo";
                 list.Add(game);
 
+               
 
                 
             }
@@ -65,6 +72,68 @@ namespace GameLibrary_Projekt
 
 
 
+
+        }
+        public static List<Game> GetPersonallyGames()
+        {
+            var list = new List<Game>();
+            string pfad = @"C:\Users\Mats Ramsl\Desktop\Lokale Daten\SavedGames.csv";
+            File.ReadAllLines(pfad);
+            var reader = new StreamReader(pfad);
+            string line = reader.ReadLine();
+
+
+
+            string[] column = line.Split(',');
+
+
+            if (column.Length != 4)
+            {
+                throw new FileFormatException("Wrong format");
+            }
+            while ((line = reader.ReadLine()) != null)
+            {
+
+                line = line.Replace("\"", String.Empty);
+                //line.Replace("\\", String.Empty);
+
+
+                column = line.Split(',', '-');
+                Game game = new Game();
+                game.Score = int.Parse(column[column.Length - 1]);
+                game.Review = column[column.Length - 2];
+
+                game.Titel = column[column.Length - 3].Replace("Review", "");
+                game.ReleaseDate = GetRandomDate();
+                if (game.ReleaseDate <= DateTime.Now)
+                {
+                    game.IsPublished = true;
+                }
+                int j = 0;
+                for (int i = column.Length - 4; i >= 0; i--)
+                {
+                    string platform = column[i].Replace(" ", String.Empty);
+                    game.Plattform += platform;
+                    j++;
+                }
+                game.Image = GetRandomImagePath();
+                game.GameDetails = "Hallo";
+                list.Add(game);
+
+
+
+
+            }
+            reader.Close();
+            return list;
+
+        }
+        public static string GetRandomImagePath()
+        {
+            Random rnd = new Random();
+            int random =  rnd.Next(1, 7);
+            string s = $"/ExampleGameImages/Bild{random}.jpg";
+            return s;
 
         }
         public static DateTime GetRandomDate()
