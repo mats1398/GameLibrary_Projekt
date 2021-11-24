@@ -82,9 +82,18 @@ namespace GameLibrary_Projekt
         }
         private void AddPersonalGame(Game game)
         {
-            string pfad = "SavedGames.csv";
-            string newLine = $"{game.Plattform}, {game.Titel}, {game.Review},{game.Score} \n ";    // Console,GameName,Review,Score
-            File.AppendAllText(pfad, newLine);
+            if (string.IsNullOrEmpty(game.Plattform)|| string.IsNullOrEmpty(game.Titel) || string.IsNullOrEmpty(game.Review) || string.IsNullOrEmpty(game.Score.ToString()))
+            {
+                MessageBox.Show("Das von Ihnen eingegene Spiel, konnte nicht gespeichert werden");
+                
+            }
+            else
+            {
+                string pfad = @"C:\Users\Mats Ramsl\Desktop\Lokale Daten\SavedGames.txt";
+                string newLine = $"\n {game.Plattform}, {game.Titel}, {game.Review},{game.Score}  ";    // Console,GameName,Review,Score
+                File.AppendAllText(pfad, newLine);
+            }
+            
         }
     }
 

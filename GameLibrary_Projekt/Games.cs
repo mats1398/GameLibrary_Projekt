@@ -22,13 +22,15 @@ namespace GameLibrary_Projekt
 
             
             string[] column = line.Split(',');
-            
+            if (column.Length != 6)
+            {
+                throw new FileFormatException("Wrong Format");
+            }
             
             
             while ((line = reader.ReadLine()) != null)
             {
-                try
-                {
+               
                     line = line.Replace("\"", String.Empty);
                 //line.Replace("\\", String.Empty);
               
@@ -66,12 +68,7 @@ namespace GameLibrary_Projekt
                
                 
                     list.Add(game);
-                }
-                catch (Exception)
-                {
-
-                    throw;
-                }
+               
                 
                
 
@@ -95,7 +92,7 @@ namespace GameLibrary_Projekt
         public static List<Game> GetPersonallyGames()
         {
             var list = new List<Game>();
-            string pfad = @"SavedGames.csv";
+            string pfad = @"C:\Users\Mats Ramsl\Desktop\Lokale Daten\SavedGames.txt";
             File.ReadAllLines(pfad);
             var reader = new StreamReader(pfad);
             string line = reader.ReadLine();
