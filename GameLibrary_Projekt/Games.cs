@@ -14,7 +14,7 @@ namespace GameLibrary_Projekt
            
 
             var list = new List<Game>();
-            string pfad = @"Games.csv";
+            string pfad = @"all_games.csv";
             File.ReadAllLines(pfad);
             var reader = new StreamReader(pfad);
             string line =  reader.ReadLine();
@@ -24,38 +24,56 @@ namespace GameLibrary_Projekt
             string[] column = line.Split(',');
             
             
-            if (column.Length != 4)
-            {
-                throw new FileFormatException("Wrong format");
-            }
+            
             while ((line = reader.ReadLine()) != null)
             {
-                
-                line = line.Replace("\"", String.Empty);
+                try
+                {
+                    line = line.Replace("\"", String.Empty);
                 //line.Replace("\\", String.Empty);
               
                 
-                column = line.Split(',' , '-');
+                column = line.Split(',' );
                 Game game = new Game();
-                game.Score = int.Parse(column[column.Length -1]);
-                game.Review = column[column.Length - 2];
+                game.Score = int.Parse(column[column.Length -2]);
+                game.Review = column[column.Length - 1];
                 
-                game.Titel = column[column.Length - 3].Replace("Review", "");
-                game.ReleaseDate = GetRandomDate();
+                game.Titel = column[0];
+                if (DateTime.TryParse($"{column[2]}, {column[3]}", out DateTime result) == true)
+                {
+                    game.ReleaseDate = DateTime.Parse($"{column[2]}, {column[3]}");
+                }
+                else
+                {
+                    game.ReleaseDate = GetRandomDate();
+                }
+                
+                
+                game.Plattform = column[1];
+
                 if (game.ReleaseDate <= DateTime.Now)
                 {
                     game.IsPublished = true;
                 }
-                int j = 0;
-                for (int i = column.Length-4 ; i >= 0; i--)
+                
+                for (int i = 4 ; i < column.Length-2; i++)
                 {
-                    string platform = column[i].Replace(" ", String.Empty);
-                    game.Plattform += platform;
-                    j++;
+                    
+                    game.GameDetails += column[i];
                 }
                 game.Image = GetRandomImagePath();
-                game.GameDetails = "Hallo";
-                list.Add(game);
+
+               
+                
+                    list.Add(game);
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+                
+               
 
                
 

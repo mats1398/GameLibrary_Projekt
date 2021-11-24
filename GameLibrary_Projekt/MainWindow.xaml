@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:GameLibrary_Projekt"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800"
-        Background="Transparent" AllowsTransparency="True"   WindowStyle="None" WindowStartupLocation="CenterScreen"  ResizeMode="NoResize">
+        Background="Transparent" AllowsTransparency="True"   WindowStyle="None" WindowStartupLocation="CenterScreen"  ResizeMode="CanResizeWithGrip">
     <Window.DataContext>
         <local:Games/>
     </Window.DataContext>
@@ -64,7 +64,7 @@
 
                     <DataGrid ItemsSource="{Binding gamelist}" Background="Transparent" RowBackground="Transparent" Margin="0,0,0,20" FontSize="12" AutoGenerateColumns="False" GridLinesVisibility="None" AreRowDetailsFrozen="True">
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="Image">
+                            <!--<DataGridTemplateColumn Header="Image">
                                 
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
@@ -76,7 +76,7 @@
                                     </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                               
-                            </DataGridTemplateColumn>
+                            </DataGridTemplateColumn>-->
                             <DataGridTextColumn Header="Gametitel" Binding="{Binding Titel}" />
                             <DataGridCheckBoxColumn Header="IsPublished" Binding="{Binding IsPublished}" IsReadOnly="True"/>
                             <DataGridTextColumn Header="ReleaseDate" Binding="{Binding ReleaseDate, StringFormat=dd/M/yyyy}" />
@@ -91,8 +91,12 @@
                             <DataTemplate>
                                 <StackPanel>
                                     <TextBlock Text="Game-Details: " FontSize="25" FontWeight="Bold"/>
-                                    <TextBlock Text="{Binding GameDetails}"/>
+                                    <StackPanel Orientation="Horizontal">
+                                    <Image Source="{Binding Image}" Width="80" />
+
+                                    <TextBlock Text="{Binding GameDetails}" TextWrapping="Wrap" Width="450" Margin="20,0,0,0" />
                                     <TextBlock/>
+                                    </StackPanel>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGrid.RowDetailsTemplate>
