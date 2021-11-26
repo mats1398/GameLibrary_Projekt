@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:GameLibrary_Projekt"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MainWindow" Height="450" Width="800" Icon="/Pictograms/Icon.png"
+
         Background="Transparent" AllowsTransparency="True"   WindowStyle="None" WindowStartupLocation="CenterScreen"  ResizeMode="CanResizeWithGrip">
     <Window.DataContext>
         <local:Games/>
@@ -129,7 +130,7 @@
 
                 </StackPanel>
 
-                    <DataGrid x:Name="PersonalDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding PersonallyList}" Background="Transparent" RowBackground="Transparent" Margin="0,0,0,20" FontSize="12" GridLinesVisibility="None" RowEditEnding="Personal_RowEditEnding" >
+                    <DataGrid x:Name="PersonalDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding PersonallyList}" Background="Transparent" RowBackground="Transparent" Margin="0,0,0,20" FontSize="12" GridLinesVisibility="None" RowEditEnding="Personal_RowEditEnding"  PreviewKeyDown="PersonalDataGrid_PreviewKeyDown">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Gametitel" Binding="{Binding Titel, UpdateSourceTrigger=PropertyChanged}" />
                                 <DataGridCheckBoxColumn Header="IsPublished" Binding="{Binding IsPublished, UpdateSourceTrigger=PropertyChanged}"  />

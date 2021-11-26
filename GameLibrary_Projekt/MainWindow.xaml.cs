@@ -78,7 +78,19 @@ namespace GameLibrary_Projekt
         private void Personal_RowEditEnding(object sender, System.Windows.Controls.DataGridRowEditEndingEventArgs e)
         {
             Game newgame = (Game)e.Row.DataContext;
-            AddPersonalGame(newgame);
+            ChangePersonalGame();
+            //AddPersonalGame(newgame);
+        }
+        private void ChangePersonalGame()
+        {
+            var list = Games.PersonallyList;
+            string newList = $"Console, GameName,Review, Score \n";
+            string pfad = @"C:\Users\Mats Ramsl\Desktop\Lokale Daten\SavedGames.txt";
+            for (int i = 0; i < list.Count; i++)
+            {
+                newList += $"{list[i].Plattform}, {list[i].Titel}, {list[i].Review}, {list[i].Score} \n";
+            }
+            File.WriteAllText(pfad, newList);
         }
         private void AddPersonalGame(Game game)
         {
@@ -94,6 +106,48 @@ namespace GameLibrary_Projekt
                 File.AppendAllText(pfad, newLine);
             }
             
+        }
+
+        private void PersonalDataGrid_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (sender.GetType().Name == e.OriginalSource.GetType().Name)
+            {
+                if (e.Key == Key.Delete)
+                {
+                    Game game = PersonalDataGrid.SelectedItem as Game;
+                    if (game != null)
+                    {
+                        DeleteGame(game);
+                    }
+
+
+                }
+            }
+            
+
+            
+
+            
+            
+        }
+        private void DeleteGame(Game game)
+        {
+            var list = Games.PersonallyList;
+            string newList = $"Console, GameName,Review, Score \n";
+            string pfad = @"C:\Users\Mats Ramsl\Desktop\Lokale Daten\SavedGames.txt";
+            for (int i = 0; i < list.Count; i++)
+            {
+                
+                if (list[i].Titel != game.Titel)
+                {
+                    newList += $"{list[i].Plattform}, {list[i].Titel}, {list[i].Review}, {list[i].Score} \n";
+                }
+                
+                  
+
+
+            }
+            File.WriteAllText(pfad, newList);
         }
     }
 
