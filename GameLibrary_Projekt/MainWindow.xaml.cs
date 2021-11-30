@@ -203,10 +203,22 @@ namespace GameLibrary_Projekt
             string platform = comboBox.SelectedItem as string;
             if (comboBox.SelectedIndex != -1)
             {
-                var newList = Games.gamelist.Where(game => game.Plattform.Contains(platform));
+                if (Search.Text == "")
+                {
 
-                SearchDataGrid.ItemsSource = null;
-                SearchDataGrid.ItemsSource = newList;
+                    var newList = Games.gamelist.Where(game => game.Plattform.EndsWith(platform));
+
+                    SearchDataGrid.ItemsSource = null;
+                    SearchDataGrid.ItemsSource = newList;
+                }
+                else
+                {
+                    var newList = Games.gamelist.Where(game => game.Plattform.EndsWith(platform) && game.Titel.ToLower().Contains(Search.Text.ToLower()));
+
+                    SearchDataGrid.ItemsSource = null;
+                    SearchDataGrid.ItemsSource = newList;
+                }
+            
             }
            
 
