@@ -1,6 +1,8 @@
 ﻿using GameLibrary_Projekt.UserControls;
 using System.IO;
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace GameLibrary_Projekt
@@ -148,6 +150,73 @@ namespace GameLibrary_Projekt
 
             }
             File.WriteAllText(pfad, newList);
+        }
+
+        private void SearchPersonally_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+            var textBox = sender as TextBox;
+            if (textBox.Text != "")
+            {
+                var newList = Games.PersonallyList.Where(game => game.Titel.ToLower().Contains(textBox.Text.ToLower()) || game.GameDetails.ToLower().Contains(textBox.Text.ToLower()));
+                PersonalDataGrid.ItemsSource = null;
+                PersonalDataGrid.ItemsSource = newList;
+            }
+            else
+            {
+                PersonalDataGrid.ItemsSource = null;
+                PersonalDataGrid.ItemsSource = Games.PersonallyList;
+            }
+        }
+
+        private void Search_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var textBox = sender as TextBox;
+            if (textBox.Text != "")
+            {
+               
+                var newList = Games.gamelist.Where(game => game.Titel.ToLower().Contains(textBox.Text.ToLower()) || game.GameDetails.ToLower().Contains(textBox.Text.ToLower()));
+                SearchDataGrid.ItemsSource = null;
+                SearchDataGrid.ItemsSource = newList;
+            }
+            else
+            {
+                SearchDataGrid.ItemsSource = null;
+                SearchDataGrid.ItemsSource = Games.gamelist;
+            }
+        }
+
+        private void AddGameToPersonal(object sender, RoutedEventArgs e)
+        {
+            Game game = (Game)SearchDataGrid.SelectedItem;
+            string pfad = @"C:\Users\Mats Ramsl\Desktop\Lokale Daten\SavedGames.txt";
+            string newLine = $"{game.Plattform}, {game.Titel}, {game.Review},{game.Score} \n";    // Console,GameName,Review,Score
+            File.AppendAllText(pfad, newLine);
+            Games.PersonallyList.Add(game);
+            var  newList = Games.PersonallyList;
+            PersonalDataGrid.ItemsSource = null;
+            PersonalDataGrid.ItemsSource = newList;
+        }
+
+        private void PlatformChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var comboBox = sender as ComboBox;
+            string platform = comboBox.SelectedItem as string;
+            if (comboBox.SelectedIndex != -1)
+            {
+                var newList = Games.gamelist.Where(game => game.Plattform.Contains(platform));
+
+                SearchDataGrid.ItemsSource = null;
+                SearchDataGrid.ItemsSource = newList;
+            }
+           
+
+        }
+
+        private void ResetFilter(object sender, RoutedEventArgs e)
+        {
+            FilterPlatform.SelectedIndex = -1;
+            SearchDataGrid.ItemsSource = null;
+            SearchDataGrid.ItemsSource = Games.gamelist;
         }
     }
 

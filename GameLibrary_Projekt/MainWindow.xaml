@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+         xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:GameLibrary_Projekt"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Icon="/Pictograms/Icon.png"
@@ -11,6 +12,27 @@
     <Window.DataContext>
         <local:Games/>
     </Window.DataContext>
+    <Window.Resources>
+        <x:Array x:Key="Platform" Type="sys:String">
+            <sys:String>3DS</sys:String>
+            <sys:String>DS</sys:String>
+            <sys:String>GameCube</sys:String>
+            <sys:String>Nintendo 64</sys:String>
+            <sys:String>PC</sys:String>
+            <sys:String>PlayStation</sys:String>
+            <sys:String>PlayStation 2</sys:String>
+            <sys:String>PlayStation 3</sys:String>
+            <sys:String>PlayStation 4</sys:String>
+            <sys:String>PlayStation Vita</sys:String>
+            <sys:String>PSP</sys:String>
+            <sys:String>Switch</sys:String>
+            <sys:String>Wii</sys:String>
+            <sys:String>Xbox</sys:String>
+            <sys:String>Xbox 360</sys:String>
+            <sys:String>Xbox One</sys:String>
+            <sys:String>Xbox Series x</sys:String>
+        </x:Array>
+    </Window.Resources>
     
     <Border BorderThickness="0" CornerRadius="19" MouseDown="MoveApp" Background="DarkGray" MinHeight="450" MinWidth="800">
         <DockPanel>
@@ -42,34 +64,36 @@
             <Grid x:Name="GridSearch" Visibility="Visible">
                 <DockPanel>
                     <StackPanel DockPanel.Dock="Top" Height="50" Margin="10"  Orientation="Horizontal">
-                        <TextBlock Text="Spiel suchen:" VerticalAlignment="Center" Margin="0,17" Width="72"/>
-                        <TextBox Name ="Search" VerticalAlignment="Center" Margin="5,10" Width="120" Background="LightGray"/>
-                        <Button Height="30">
+                        <TextBlock Text="Search Game: " VerticalAlignment="Center" Margin="0,17" Width="72"/>
+                        <TextBox Name ="Search" VerticalAlignment="Center" Margin="5,10" Width="120" Background="LightGray" TextChanged="Search_TextChanged"/>
+                        
                             <Image Source="/Pictograms/search.png" Height="20"  Margin="10,0" Width="22" />
-                        </Button>
+                        
 
-                        <TextBlock Text="Filter1" VerticalAlignment="Center" Margin="100,0,0,0"/>
-                        <TextBlock Text="Filter2" VerticalAlignment="Center" Margin="20"/>
-
-                        <TextBlock Text="Filter3" VerticalAlignment="Center" Margin="20"/>
-
-
+                        <TextBlock Text="Plaform: " VerticalAlignment="Center" Margin="0,0,0,0"/>
+                        <ComboBox x:Name="FilterPlatform" Width="100" Height="20" ItemsSource="{StaticResource Platform}" SelectionChanged="PlatformChanged"/>
+                        <TextBlock Text="Genre: " VerticalAlignment="Center" Margin="20,0,0,0"/>
+                        <ComboBox x:Name="FilterGenre" Width="100" Height="20"  SelectionChanged="PlatformChanged"/>
 
 
-                        <Button Content="Anwenden" Background="Transparent"  Height="30" HorizontalAlignment="Right" Margin="50,0" Click="OnCLick"/>
+
+
+
+
+                        <Button Content="Reset Filter" Background="Transparent"  Height="30" HorizontalAlignment="Right" Margin="50,0" Click="ResetFilter"/>
 
                         <Viewbox Width="100"/>
 
 
                     </StackPanel>
 
-                    <DataGrid ItemsSource="{Binding gamelist}" Background="Transparent" RowBackground="Transparent" Margin="0,0,0,20" FontSize="12" AutoGenerateColumns="False" GridLinesVisibility="None" AreRowDetailsFrozen="True">
+                    <DataGrid x:Name="SearchDataGrid" ItemsSource="{Binding gamelist}" Background="Transparent" RowBackground="Transparent" Margin="0,0,0,20" FontSize="12" AutoGenerateColumns="False" GridLinesVisibility="None" AreRowDetailsFrozen="True">
                         <DataGrid.Columns>
-                            <!--<DataGridTemplateColumn Header="Image">
+                            <DataGridTemplateColumn Header="Save">
                                 
                                     <DataGridTemplateColumn.CellTemplate>
                                         <DataTemplate>
-                                        <Image Source="{Binding Path=Bild1.jpg}" Width="20" Height="20"/>
+                                        <Button Click="AddGameToPersonal" Content="Add"/>
 
 
 
@@ -77,7 +101,7 @@
                                     </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                               
-                            </DataGridTemplateColumn>-->
+                            </DataGridTemplateColumn>
                             <DataGridTextColumn Header="Gametitel" Binding="{Binding Titel}" />
                             <DataGridCheckBoxColumn Header="IsPublished" Binding="{Binding IsPublished}" IsReadOnly="True"/>
                             <DataGridTextColumn Header="ReleaseDate" Binding="{Binding ReleaseDate, StringFormat=dd/M/yyyy}" />
@@ -89,6 +113,7 @@
 
                         </DataGrid.Columns>
                         <DataGrid.RowDetailsTemplate>
+                            
                             <DataTemplate>
                                 <StackPanel>
                                     <TextBlock Text="Game-Details: " FontSize="25" FontWeight="Bold"/>
@@ -109,11 +134,11 @@
             <Grid x:Name="Personal" Visibility="Collapsed">
                 <DockPanel>
                 <StackPanel DockPanel.Dock="Top" Height="50" Margin="10"  Orientation="Horizontal">
-                    <TextBlock Text="Spiel suchen:" VerticalAlignment="Center" Margin="0,17" Width="72"/>
-                    <TextBox Name ="SearchPersonally" VerticalAlignment="Center" Margin="5,10" Width="120" Background="LightGray"/>
-                    <Button Height="30">
+                    <TextBlock Text="Spiel suchen:" VerticalAlignment="Center" Margin="0,17" Width="72" />
+                    <TextBox Name ="SearchPersonally" VerticalAlignment="Center" Margin="5,10" Width="120" Background="LightGray" TextChanged="SearchPersonally_TextChanged"/>
+                    
                         <Image Source="/Pictograms/search.png" Height="20"  Margin="10,0" Width="22" />
-                    </Button>
+                    
 
                     <TextBlock Text="Filter1" VerticalAlignment="Center" Margin="100,0,0,0"/>
                     <TextBlock Text="Filter2" VerticalAlignment="Center" Margin="20"/>
@@ -135,6 +160,7 @@
                             <DataGridTextColumn Header="Gametitel" Binding="{Binding Titel, UpdateSourceTrigger=PropertyChanged}" />
                                 <DataGridCheckBoxColumn Header="IsPublished" Binding="{Binding IsPublished, UpdateSourceTrigger=PropertyChanged}"  />
                                 <DataGridTextColumn Header="ReleaseDate" Binding="{Binding ReleaseDate, StringFormat=dd/M/yyyy, UpdateSourceTrigger=PropertyChanged}" />
+                           
                                 <DataGridTextColumn Header="Platform" Binding="{Binding Plattform, UpdateSourceTrigger=PropertyChanged}"/>
                                 <DataGridTextColumn Header="Score" Binding="{Binding Score, UpdateSourceTrigger=PropertyChanged}"/>
                                 <DataGridTextColumn Header="Review" Binding="{Binding Review, UpdateSourceTrigger=PropertyChanged}"/>
