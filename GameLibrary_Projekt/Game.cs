@@ -16,6 +16,8 @@ namespace GameLibrary_Projekt
         public int Score { get; set; } //
         public string Review { get; set; } //
         public string Image { get; set; }
+
+        public string Genre { get; set; }
         public bool IsPublished { get; set; } //
         public override string ToString()
         {

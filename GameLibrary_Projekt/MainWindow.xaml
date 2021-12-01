@@ -32,6 +32,38 @@
             <sys:String>Xbox One</sys:String>
             <sys:String>Xbox Series x</sys:String>
         </x:Array>
+        <x:Array x:Key="ReleaseYears" Type="sys:Int32">
+            <sys:Int32>1995</sys:Int32>
+            <sys:Int32>1996</sys:Int32>
+            <sys:Int32>1997</sys:Int32>
+            <sys:Int32>1998</sys:Int32>
+            <sys:Int32>1999</sys:Int32>
+            <sys:Int32>2000</sys:Int32>
+            <sys:Int32>2001</sys:Int32>
+            <sys:Int32>2002</sys:Int32>
+            <sys:Int32>2003</sys:Int32>
+            <sys:Int32>2004</sys:Int32>
+            <sys:Int32>2005</sys:Int32>
+            <sys:Int32>2006</sys:Int32>
+            <sys:Int32>2007</sys:Int32>
+            <sys:Int32>2008</sys:Int32>
+            <sys:Int32>2009</sys:Int32>
+            <sys:Int32>2010</sys:Int32>
+            <sys:Int32>2011</sys:Int32>
+            <sys:Int32>2012</sys:Int32>
+            <sys:Int32>2013</sys:Int32>
+            <sys:Int32>2014</sys:Int32>
+            <sys:Int32>2015</sys:Int32>
+            <sys:Int32>2016</sys:Int32>
+            <sys:Int32>2017</sys:Int32>
+            <sys:Int32>2018</sys:Int32>
+            <sys:Int32>2019</sys:Int32>
+            <sys:Int32>2020</sys:Int32>
+            <sys:Int32>2021</sys:Int32>
+            <sys:Int32>2022</sys:Int32>
+            <sys:Int32>2023</sys:Int32>
+
+        </x:Array>
     </Window.Resources>
     
     <Border BorderThickness="0" CornerRadius="19" MouseDown="MoveApp" Background="DarkGray" MinHeight="450" MinWidth="800">
@@ -64,23 +96,25 @@
             <Grid x:Name="GridSearch" Visibility="Visible">
                 <DockPanel>
                     <StackPanel DockPanel.Dock="Top" Height="50" Margin="10"  Orientation="Horizontal">
-                        <TextBlock Text="Search Game: " VerticalAlignment="Center" Margin="0,17" Width="72"/>
-                        <TextBox Name ="Search" VerticalAlignment="Center" Margin="5,10" Width="120" Background="LightGray" TextChanged="Search_TextChanged"/>
+                        <TextBlock Text="Search: " VerticalAlignment="Center" Margin="0,17" />
+                        <TextBox Name ="SearchBox" VerticalAlignment="Center" Margin="5,10" Width="90" Background="LightGray" TextChanged="Search_TextChanged"/>
                         
-                            <Image Source="/Pictograms/search.png" Height="20"  Margin="10,0" Width="22" />
+                            <!--<Image Source="/Pictograms/search.png" Height="20"  Margin="10,0" Width="22" />-->
                         
 
-                        <TextBlock Text="Plaform: " VerticalAlignment="Center" Margin="0,0,0,0"/>
-                        <ComboBox x:Name="FilterPlatform" Width="100" Height="20" ItemsSource="{StaticResource Platform}" SelectionChanged="PlatformChanged"/>
+                        <TextBlock Text="Plaform: " VerticalAlignment="Center" />
+                        <ComboBox  x:Name="FilterPlatform" Width="100" Height="20" ItemsSource="{StaticResource Platform}" SelectionChanged="PlatformChanged"/>
                         <TextBlock Text="Genre: " VerticalAlignment="Center" Margin="20,0,0,0"/>
                         <ComboBox x:Name="FilterGenre" Width="100" Height="20"  SelectionChanged="PlatformChanged"/>
+                        <TextBlock x:Name="Release" Text="Release: " VerticalAlignment="Center" Margin="10,0,0,0"/>
+                        <ComboBox x:Name="FilterRelease" Height="20" Width="70" ItemsSource="{StaticResource ReleaseYears}" SelectionChanged="ReleaseYearChanged"/>
 
 
 
 
 
 
-                        <Button Content="Reset Filter" Background="Transparent"  Height="30" HorizontalAlignment="Right" Margin="50,0" Click="ResetFilter"/>
+                        <Button Content="Reset Filter" Background="Transparent"  Height="30" HorizontalAlignment="Right" Margin="10,0" Click="ResetFilter"/>
 
                         <Viewbox Width="100"/>
 
@@ -103,7 +137,7 @@
                               
                             </DataGridTemplateColumn>
                             <DataGridTextColumn Header="Gametitel" Binding="{Binding Titel}" />
-                            <DataGridCheckBoxColumn Header="IsPublished" Binding="{Binding IsPublished}" IsReadOnly="True"/>
+                            <!--<DataGridCheckBoxColumn Header="IsPublished" Binding="{Binding IsPublished}" IsReadOnly="True"/>-->
                             <DataGridTextColumn Header="ReleaseDate" Binding="{Binding ReleaseDate, StringFormat=dd/M/yyyy}" />
                             <DataGridTextColumn Header="Platform" Binding="{Binding Plattform}"/>
                             <DataGridTextColumn Header="Score" Binding="{Binding Score}"/>
@@ -148,7 +182,7 @@
 
 
 
-                    <Button Content="Anwenden" Background="Transparent"  Height="30" HorizontalAlignment="Right" Margin="50,0" Click="OnCLick"/>
+                   
 
                     <Viewbox Width="100"/>
 
