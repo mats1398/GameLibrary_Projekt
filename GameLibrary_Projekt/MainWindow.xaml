@@ -64,11 +64,25 @@
             <sys:Int32>2023</sys:Int32>
 
         </x:Array>
+        <x:Array x:Key="Genres" Type="sys:String">
+            <sys:String>Roleplay</sys:String>
+            <sys:String>Shooter</sys:String>
+            <sys:String>Action</sys:String>
+            <sys:String>Simulation</sys:String>
+            <sys:String>Adventure</sys:String>
+            <sys:String>Sports</sys:String>
+            <sys:String>Racing</sys:String>
+            <sys:String>Strategy</sys:String>
+            <sys:String>Military</sys:String>
+            <sys:String>Phantasie</sys:String>
+
+        </x:Array>
+        
     </Window.Resources>
     
-    <Border BorderThickness="0" CornerRadius="19" MouseDown="MoveApp" Background="DarkGray" MinHeight="450" MinWidth="800">
+    <Border BorderThickness="0" CornerRadius="19" MouseDown="MoveApp" Background="#FFFFF0" MinHeight="450" MinWidth="800" >
         <DockPanel>
-            <DockPanel Background="DarkBlue" DockPanel.Dock="Top" Height="23"  >
+            <DockPanel Background="#698B69" DockPanel.Dock="Top" Height="23"  >
                 <!--<TextBlock  HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Height="27" >
                    <LineBreak/> Your <LineBreak/> Logo
                 </TextBlock>-->
@@ -81,7 +95,7 @@
                    
                 </Button>
             </DockPanel>
-            <StackPanel Name="Dock" DockPanel.Dock="Left"  Width="114" Margin="0,0,0,100"  Background="LightBlue" >
+            <StackPanel Name="Dock" DockPanel.Dock="Left"  Width="114" Margin="0,-0.2,0,22.6"  Background="#B4EEB4" >
 
                 <RadioButton Height="80" Content="Search Games" IsChecked="True" Style="{StaticResource SideBarButton}" Click="ChangeToSearchGames" />
                 <RadioButton Height="80" Content="Your Games"  Style="{StaticResource SideBarButton}"  Click="ChangeToPersonalGames" />
@@ -105,7 +119,7 @@
                         <TextBlock Text="Plaform: " VerticalAlignment="Center" />
                         <ComboBox  x:Name="FilterPlatform" Width="100" Height="20" ItemsSource="{StaticResource Platform}" SelectionChanged="PlatformChanged"/>
                         <TextBlock Text="Genre: " VerticalAlignment="Center" Margin="20,0,0,0"/>
-                        <ComboBox x:Name="FilterGenre" Width="100" Height="20"  SelectionChanged="PlatformChanged"/>
+                        <ComboBox x:Name="FilterGenre" Width="100" Height="20"  SelectionChanged="PlatformChanged" ItemsSource="{StaticResource Genres}"/>
                         <TextBlock x:Name="Release" Text="Release: " VerticalAlignment="Center" Margin="10,0,0,0"/>
                         <ComboBox x:Name="FilterRelease" Height="20" Width="70" ItemsSource="{StaticResource ReleaseYears}" SelectionChanged="ReleaseYearChanged"/>
 
@@ -140,6 +154,8 @@
                             <!--<DataGridCheckBoxColumn Header="IsPublished" Binding="{Binding IsPublished}" IsReadOnly="True"/>-->
                             <DataGridTextColumn Header="ReleaseDate" Binding="{Binding ReleaseDate, StringFormat=dd/M/yyyy}" />
                             <DataGridTextColumn Header="Platform" Binding="{Binding Plattform}"/>
+                            <DataGridTextColumn Header="Genre" Binding="{Binding Genre}"/>
+
                             <DataGridTextColumn Header="Score" Binding="{Binding Score}"/>
                             <DataGridTextColumn Header="Review" Binding="{Binding Review}"/>
 

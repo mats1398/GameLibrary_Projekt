@@ -22,10 +22,10 @@
         <Style.Triggers>
 
         <Trigger Property="IsMouseOver" Value="True">
-            <Setter Property="Background" Value="#5882FA"/>
+                <Setter Property="Background" Value="#9BCd9b"/>
         </Trigger>
         <Trigger Property="IsChecked" Value="True">
-            <Setter Property="Background" Value="#2E64FE"/>
+                <Setter Property="Background" Value="#8Fbc8f"/>
         </Trigger>
         <Trigger Property="IsMouseOver" Value="True">
             <Setter Property="Cursor" Value="Hand"/>

@@ -18,6 +18,9 @@ namespace GameLibrary_Projekt
             File.ReadAllLines(pfad);
             var reader = new StreamReader(pfad);
             string line =  reader.ReadLine();
+            Random rnd = new Random();
+            int random = rnd.Next(1, 9);
+            int counter = random;
            
 
             
@@ -64,17 +67,17 @@ namespace GameLibrary_Projekt
                     game.GameDetails += column[i];
                 }
                 game.Image = GetRandomImagePath();
-
+                game.Genre = GetGenre(counter);
                
                 
                     list.Add(game);
-               
-                
-               
 
-               
 
-                
+
+
+
+
+                counter += random;
             }
             reader.Close();
             return list;
@@ -141,6 +144,50 @@ namespace GameLibrary_Projekt
             }
             reader.Close();
             return list;
+
+        }
+        public static string GetGenre(int counter)
+        {
+            int zahl = counter % 10;
+            if (zahl == 0)
+            {
+                return "Roleplay";
+            }
+            else if (zahl == 1)
+            {
+                return "Shooter";
+            }
+            else if (zahl == 2)
+            {
+                return "Action";
+            }
+            else if (zahl == 3)
+            {
+                return "Simulation";
+            }
+            else if (zahl == 4)
+            {
+                return "Adventure";
+            }
+            else if (zahl == 5)
+            {
+                return "Sports";
+            }
+            else if (zahl == 6)
+            {
+                return "Racing";
+            }
+            else if (zahl == 7)
+            {
+                return "Strategy";
+            }
+            else if (zahl == 8)
+            {
+                return "Military";
+            }
+            else             {
+                return "Phantasie";
+            }
 
         }
         public static string GetRandomImagePath()
