@@ -12,7 +12,7 @@ namespace GameLibrary_Projekt
         public string Titel { get; set; } //
         public DateTime ReleaseDate { get; set; } //
         public string GameDetails { get; set; } //
-        public string Plattform { get; set; }//
+        public string Platform { get; set; }//
         public int Score { get; set; } //
         public string Review { get; set; } //
         public string Image { get; set; }
@@ -22,7 +22,7 @@ namespace GameLibrary_Projekt
         public override string ToString()
         {
             string plattform = "";
-            foreach (var item in Plattform)
+            foreach (var item in Platform)
             {
                 plattform += $", {item}";
             }

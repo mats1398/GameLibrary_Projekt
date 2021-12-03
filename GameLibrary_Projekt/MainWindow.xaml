@@ -6,7 +6,7 @@
          xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:GameLibrary_Projekt"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Icon="/Pictograms/Icon.png"
+        Title="MainWindow" Height="600" Width="900" Icon="/Pictograms/Icon.png"
 
         Background="Transparent" AllowsTransparency="True"   WindowStyle="None" WindowStartupLocation="CenterScreen"  ResizeMode="CanResizeWithGrip">
     <Window.DataContext>
@@ -128,14 +128,14 @@
 
 
 
-                        <Button Content="Reset Filter" Background="Transparent"  Height="30" HorizontalAlignment="Right" Margin="10,0" Click="ResetFilter"/>
+                        <Button Content="Reset Filter" Background="Transparent"  Height="30" HorizontalAlignment="Right" Margin="30,0" Click="ResetFilter"/>
 
-                        <Viewbox Width="100"/>
+                        
 
 
                     </StackPanel>
 
-                    <DataGrid x:Name="SearchDataGrid" ItemsSource="{Binding gamelist}" Background="Transparent" RowBackground="Transparent" Margin="0,0,0,20" FontSize="12" AutoGenerateColumns="False" GridLinesVisibility="None" AreRowDetailsFrozen="True">
+                    <DataGrid x:Name="SearchDataGrid" ItemsSource="{Binding gamelist}" IsReadOnly="True"  Background="Transparent" RowBackground="Transparent" Margin="0,0,0,20" FontSize="12" AutoGenerateColumns="False" GridLinesVisibility="None" AreRowDetailsFrozen="True">
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="Save">
                                 
@@ -153,7 +153,7 @@
                             <DataGridTextColumn Header="Gametitel" Binding="{Binding Titel}" />
                             <!--<DataGridCheckBoxColumn Header="IsPublished" Binding="{Binding IsPublished}" IsReadOnly="True"/>-->
                             <DataGridTextColumn Header="ReleaseDate" Binding="{Binding ReleaseDate, StringFormat=dd/M/yyyy}" />
-                            <DataGridTextColumn Header="Platform" Binding="{Binding Plattform}"/>
+                            <DataGridTextColumn Header="Platform" Binding="{Binding Platform}"/>
                             <DataGridTextColumn Header="Genre" Binding="{Binding Genre}"/>
 
                             <DataGridTextColumn Header="Score" Binding="{Binding Score}"/>
@@ -183,38 +183,51 @@
             
             <Grid x:Name="Personal" Visibility="Collapsed">
                 <DockPanel>
-                <StackPanel DockPanel.Dock="Top" Height="50" Margin="10"  Orientation="Horizontal">
-                    <TextBlock Text="Spiel suchen:" VerticalAlignment="Center" Margin="0,17" Width="72" />
-                    <TextBox Name ="SearchPersonally" VerticalAlignment="Center" Margin="5,10" Width="120" Background="LightGray" TextChanged="SearchPersonally_TextChanged"/>
-                    
-                        <Image Source="/Pictograms/search.png" Height="20"  Margin="10,0" Width="22" />
-                    
+                    <StackPanel DockPanel.Dock="Top" Height="50" Margin="10"  Orientation="Horizontal">
+                        <TextBlock Text="Search: " VerticalAlignment="Center" Margin="0,17" />
+                        <TextBox Name ="SearchBoxPersonal" VerticalAlignment="Center" Margin="5,10" Width="90" Background="LightGray" TextChanged="Search_TextChangedPersonal"/>
 
-                    <TextBlock Text="Filter1" VerticalAlignment="Center" Margin="100,0,0,0"/>
-                    <TextBlock Text="Filter2" VerticalAlignment="Center" Margin="20"/>
-
-                    <TextBlock Text="Filter3" VerticalAlignment="Center" Margin="20"/>
+                        <!--<Image Source="/Pictograms/search.png" Height="20"  Margin="10,0" Width="22" />-->
 
 
+                        <TextBlock Text="Plaform: " VerticalAlignment="Center" />
+                        <ComboBox  x:Name="FilterPlatformPersonal" Width="100" Height="20" ItemsSource="{StaticResource Platform}" SelectionChanged="PlatformChangedPersonal"/>
+                        <TextBlock Text="Genre: " VerticalAlignment="Center" Margin="20,0,0,0"/>
+                        <ComboBox x:Name="FilterGenrePersonal" Width="100" Height="20"  SelectionChanged="PlatformChangedPersonal" ItemsSource="{StaticResource Genres}"/>
+                        <TextBlock  Text="Release: " VerticalAlignment="Center" Margin="10,0,0,0"/>
+                        <ComboBox x:Name="FilterReleasePersonal" Height="20" Width="70" ItemsSource="{StaticResource ReleaseYears}" SelectionChanged="ReleaseYearChangedPesonal"/>
+
+                        <Button Content="Reset Filter" Background="Transparent"  Height="30" HorizontalAlignment="Right" Margin="30,0" Click="ResetFilterPersonal"/>
 
 
-                   
-
-                    <Viewbox Width="100"/>
 
 
-                </StackPanel>
+                    </StackPanel>
 
                     <DataGrid x:Name="PersonalDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding PersonallyList}" Background="Transparent" RowBackground="Transparent" Margin="0,0,0,20" FontSize="12" GridLinesVisibility="None" RowEditEnding="Personal_RowEditEnding"  PreviewKeyDown="PersonalDataGrid_PreviewKeyDown">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Gametitel" Binding="{Binding Titel, UpdateSourceTrigger=PropertyChanged}" />
-                                <DataGridCheckBoxColumn Header="IsPublished" Binding="{Binding IsPublished, UpdateSourceTrigger=PropertyChanged}"  />
                                 <DataGridTextColumn Header="ReleaseDate" Binding="{Binding ReleaseDate, StringFormat=dd/M/yyyy, UpdateSourceTrigger=PropertyChanged}" />
                            
-                                <DataGridTextColumn Header="Platform" Binding="{Binding Plattform, UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="Score" Binding="{Binding Score, UpdateSourceTrigger=PropertyChanged}"/>
+                                <DataGridTextColumn Header="Platform" Binding="{Binding Platform, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Genre" Binding="{Binding Genre, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Score" Binding="{Binding Score, UpdateSourceTrigger=PropertyChanged}"/>
                                 <DataGridTextColumn Header="Review" Binding="{Binding Review, UpdateSourceTrigger=PropertyChanged}"/>
                         </DataGrid.Columns>
+                        <!--<DataGrid.RowDetailsTemplate>
+
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="Game-Details: " FontSize="25" FontWeight="Bold"/>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Image Source="{Binding Image}" Width="80" />
+
+                                        <TextBlock Text="{Binding GameDetails}" TextWrapping="Wrap" Width="450" Margin="20,0,0,0" />
+                                        <TextBlock/>
+                                    </StackPanel>
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGrid.RowDetailsTemplate>-->
                         <!--Datepicker einbauen, um das Datum einzupflegen, wann das Spiel gespielt wurde-->
                     </DataGrid>
                 </DockPanel>

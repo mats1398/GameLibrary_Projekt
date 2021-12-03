@@ -118,9 +118,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="SavedGames.csv">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -147,6 +144,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Pictograms\Icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="ExampleGameImages\Bild10.jpg" />
+    <Resource Include="ExampleGameImages\Bild8.jpg" />
+    <Resource Include="ExampleGameImages\Bild9.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

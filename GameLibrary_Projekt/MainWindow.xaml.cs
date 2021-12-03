@@ -15,17 +15,7 @@ namespace GameLibrary_Projekt
         
         public MainWindow()
         {
-            
-            InitializeComponent();
-            //ChangeUserControl.Children.Clear();
-            //PersonallyGames personal = new PersonallyGames();
-           
-            //ChangeUserControl.Children.Add(personal);
-            //SearchingGamesView searchView = new SearchingGamesView();
-            //ChangeUserControl.Children.Add(searchView);
-
-
-
+           InitializeComponent();
         }
 
 
@@ -60,11 +50,7 @@ namespace GameLibrary_Projekt
         private void ChangeToSearchGames(object sender, RoutedEventArgs e)
         {
             Personal.Visibility = Visibility.Collapsed;
-            GridSearch.Visibility = Visibility.Visible; 
-            
-        //    ChangeUserControl.Children.Clear();
-        //    SearchingGamesView searchView = new SearchingGamesView();
-        //    ChangeUserControl.Children.Add(searchView);
+            GridSearch.Visibility = Visibility.Visible;       
         }
 
         private void ChangeToPersonalGames(object sender, RoutedEventArgs e)
@@ -77,7 +63,7 @@ namespace GameLibrary_Projekt
         {
             Game newgame = (Game)e.Row.DataContext;
             ChangePersonalGame();
-            //AddPersonalGame(newgame);
+            
         }
         private void ChangePersonalGame()
         {
@@ -86,25 +72,10 @@ namespace GameLibrary_Projekt
             string pfad = @"C:\Users\Mats Ramsl\Desktop\Lokale Daten\SavedGames.txt";
             for (int i = 0; i < list.Count; i++)
             {
-                newList += $"{list[i].Plattform}, {list[i].Titel}, {list[i].Review}, {list[i].Score} \n";
+                newList += $"{list[i].Titel}, {list[i].Platform}, {list[i].ReleaseDate:MMMM dd, yyyy}, {list[i].GameDetails}, {list[i].Score}, {list[i].Review} \n";
             }
             File.WriteAllText(pfad, newList);
-        }
-        private void AddPersonalGame(Game game)
-        {
-            if (string.IsNullOrEmpty(game.Plattform)|| string.IsNullOrEmpty(game.Titel) || string.IsNullOrEmpty(game.Review) || string.IsNullOrEmpty(game.Score.ToString()))
-            {
-                MessageBox.Show("Das von Ihnen eingegene Spiel, konnte nicht gespeichert werden");
-                
-            }
-            else
-            {
-                string pfad = @"C:\Users\Mats Ramsl\Desktop\Lokale Daten\SavedGames.txt";
-                string newLine = $"\n {game.Plattform}, {game.Titel}, {game.Review},{game.Score}  ";    // Console,GameName,Review,Score
-                File.AppendAllText(pfad, newLine);
-            }
-            
-        }
+        }       
 
         private void PersonalDataGrid_PreviewKeyDown(object sender, KeyEventArgs e)
         {
@@ -120,8 +91,7 @@ namespace GameLibrary_Projekt
 
 
                 }
-            }
-            
+            }      
 
             
 
@@ -131,14 +101,14 @@ namespace GameLibrary_Projekt
         private void DeleteGame(Game game)
         {
             var list = Games.PersonallyList;
-            string newList = $"Console, GameName,Review, Score \n";
+            string newList = $"Name, Platform, ReleaseDate, Summary, MetaScore, UserReview \n";
             string pfad = @"C:\Users\Mats Ramsl\Desktop\Lokale Daten\SavedGames.txt";
             for (int i = 0; i < list.Count; i++)
             {
                 
                 if (list[i].Titel != game.Titel)
                 {
-                    newList += $"{list[i].Plattform}, {list[i].Titel}, {list[i].Review}, {list[i].Score} \n";
+                    newList += $"{list[i].Titel}, {list[i].Platform}, {list[i].ReleaseDate:MMMM dd, yyyy}, {list[i].GameDetails}, {list[i].Score}, {list[i].Review} \n";
                 }
                 
                   
@@ -175,7 +145,7 @@ namespace GameLibrary_Projekt
         {
             Game game = (Game)SearchDataGrid.SelectedItem;
             string pfad = @"C:\Users\Mats Ramsl\Desktop\Lokale Daten\SavedGames.txt";
-            string newLine = $"{game.Plattform}, {game.Titel}, {game.Review},{game.Score} \n";    // Console,GameName,Review,Score
+            string newLine = $"{game.Titel}, {game.Platform}, {game.ReleaseDate:MMMM dd, yyyy}, {game.GameDetails}, {game.Score}, {game.Review} \n";    // Console,GameName,Review,Score
             File.AppendAllText(pfad, newLine);
             Games.PersonallyList.Add(game);
             var  newList = Games.PersonallyList;
@@ -190,14 +160,14 @@ namespace GameLibrary_Projekt
 
             if (SearchBox.Text != "" && FilterPlatform.SelectedIndex != -1 && FilterGenre.SelectedIndex != -1 && FilterRelease.SelectedIndex != -1) //alle
             {
-                 var newList = Games.gamelist.Where(game =>  game.Titel.ToLower().Contains(SearchBox.Text.ToLower()) && game.Plattform.Contains(FilterPlatform.SelectedItem as string) && game.Genre.Contains(FilterGenre.SelectedItem as string) && game.ReleaseDate.Year.Equals(FilterRelease.SelectedItem));
+                var newList = Games.gamelist.Where(game =>  game.Titel.ToLower().Contains(SearchBox.Text.ToLower()) && game.Platform.Contains(FilterPlatform.SelectedItem as string) && game.Genre.Contains(FilterGenre.SelectedItem as string) && game.ReleaseDate.Year.Equals(FilterRelease.SelectedItem));
                 SearchDataGrid.ItemsSource = null;
                 SearchDataGrid.ItemsSource = newList;
 
             }
             else if (SearchBox.Text != "" && FilterPlatform.SelectedIndex != -1 && FilterGenre.SelectedIndex != -1 && FilterRelease.SelectedIndex == -1) //Search, Platform, Genre
             {
-                 var newList = Games.gamelist.Where(game => game.Titel.ToLower().Contains(SearchBox.Text.ToLower()) && game.Plattform.Contains(FilterPlatform.SelectedItem as string) && game.Genre.Contains(FilterGenre.SelectedItem as string));
+                 var newList = Games.gamelist.Where(game => game.Titel.ToLower().Contains(SearchBox.Text.ToLower()) && game.Platform.Contains(FilterPlatform.SelectedItem as string) && game.Genre.Contains(FilterGenre.SelectedItem as string));
                 SearchDataGrid.ItemsSource = null;
                 SearchDataGrid.ItemsSource = newList;
 
@@ -205,7 +175,7 @@ namespace GameLibrary_Projekt
             }
             else if (SearchBox.Text != "" && FilterPlatform.SelectedIndex != -1 && FilterGenre.SelectedIndex == -1 && FilterRelease.SelectedIndex != -1) // Search, Platform, Release
             {
-                var newList = Games.gamelist.Where(game => game.Titel.ToLower().Contains(SearchBox.Text.ToLower()) && game.Plattform.Contains(FilterPlatform.SelectedItem as string) && game.ReleaseDate.Year.Equals(FilterRelease.SelectedItem));
+                var newList = Games.gamelist.Where(game => game.Titel.ToLower().Contains(SearchBox.Text.ToLower()) && game.Platform.Contains(FilterPlatform.SelectedItem as string) && game.ReleaseDate.Year.Equals(FilterRelease.SelectedItem));
                 SearchDataGrid.ItemsSource = null;
                 SearchDataGrid.ItemsSource = newList;
 
@@ -221,7 +191,7 @@ namespace GameLibrary_Projekt
             }
             else if(SearchBox.Text == "" && FilterPlatform.SelectedIndex != -1 && FilterGenre.SelectedIndex != -1 && FilterRelease.SelectedIndex != -1) // Platform, Genre, Release
             {
-                var newList = Games.gamelist.Where(game => game.Plattform.Contains(FilterPlatform.SelectedItem as string) && game.Genre.Contains(FilterGenre.SelectedItem as string) && game.ReleaseDate.Year.Equals(FilterRelease.SelectedItem));
+                var newList = Games.gamelist.Where(game => game.Platform.Contains(FilterPlatform.SelectedItem as string) && game.Genre.Contains(FilterGenre.SelectedItem as string) && game.ReleaseDate.Year.Equals(FilterRelease.SelectedItem));
                 SearchDataGrid.ItemsSource = null;
                 SearchDataGrid.ItemsSource = newList;
 
@@ -234,7 +204,7 @@ namespace GameLibrary_Projekt
             }
             else if (SearchBox.Text == "" && FilterPlatform.SelectedIndex != -1 && FilterGenre.SelectedIndex == -1 && FilterRelease.SelectedIndex == -1) //Platform
             {
-                var newList = Games.gamelist.Where(game => game.Plattform.Contains(FilterPlatform.SelectedItem as string));
+                var newList = Games.gamelist.Where(game => game.Platform.Contains(FilterPlatform.SelectedItem as string));
                 SearchDataGrid.ItemsSource = null;
                 SearchDataGrid.ItemsSource = newList;
             }
@@ -254,7 +224,7 @@ namespace GameLibrary_Projekt
             }
             else if (SearchBox.Text != "" && FilterPlatform.SelectedIndex != -1 && FilterGenre.SelectedIndex == -1 && FilterRelease.SelectedIndex == -1) //Search, Platform
             {
-               var newList = Games.gamelist.Where(game => game.Titel.ToLower().Contains(SearchBox.Text.ToLower()) && game.Plattform.Contains(FilterPlatform.SelectedItem as string));
+               var newList = Games.gamelist.Where(game => game.Titel.ToLower().Contains(SearchBox.Text.ToLower()) && game.Platform.Contains(FilterPlatform.SelectedItem as string));
                 SearchDataGrid.ItemsSource = null;
                 SearchDataGrid.ItemsSource = newList;
 
@@ -282,14 +252,14 @@ namespace GameLibrary_Projekt
             }
             else if (SearchBox.Text == "" && FilterPlatform.SelectedIndex != -1 && FilterGenre.SelectedIndex != -1 && FilterRelease.SelectedIndex == -1) // Platform, Genre
             {
-                var newList = Games.gamelist.Where(game => game.Plattform.Contains(FilterPlatform.SelectedItem as string) && game.Genre.Contains(FilterGenre.SelectedItem as string));
+                var newList = Games.gamelist.Where(game => game.Platform.Contains(FilterPlatform.SelectedItem as string) && game.Genre.Contains(FilterGenre.SelectedItem as string));
                 SearchDataGrid.ItemsSource = null;
                 SearchDataGrid.ItemsSource = newList;
 
             }
             else if (SearchBox.Text == "" && FilterPlatform.SelectedIndex != -1 && FilterGenre.SelectedIndex == -1 && FilterRelease.SelectedIndex != -1)// platform, Release
             {
-                var newList = Games.gamelist.Where(game => game.Plattform.Contains(FilterPlatform.SelectedItem as string) && game.ReleaseDate.Year.Equals(FilterRelease.SelectedItem));
+                var newList = Games.gamelist.Where(game => game.Platform.Contains(FilterPlatform.SelectedItem as string) && game.ReleaseDate.Year.Equals(FilterRelease.SelectedItem));
                 SearchDataGrid.ItemsSource = null;
                 SearchDataGrid.ItemsSource = newList;
 
@@ -325,6 +295,148 @@ namespace GameLibrary_Projekt
         }
 
         
+
+       
+
+        private void PlatformChangedPersonal(object sender, SelectionChangedEventArgs e)
+        {
+            FilterorSearchChangedPersonal();
+        }
+
+        private void ReleaseYearChangedPesonal(object sender, SelectionChangedEventArgs e)
+        {
+            FilterorSearchChangedPersonal();
+        }
+
+        private void Search_TextChangedPersonal(object sender, TextChangedEventArgs e)
+        {
+            FilterorSearchChangedPersonal();
+        }
+        private void FilterorSearchChangedPersonal()
+        {
+
+            if (SearchBoxPersonal.Text != "" && FilterPlatformPersonal.SelectedIndex != -1 && FilterGenrePersonal.SelectedIndex != -1 && FilterReleasePersonal.SelectedIndex != -1) //alle
+            {
+                var newList = Games.PersonallyList.Where(game => game.Titel.ToLower().Contains(SearchBoxPersonal.Text.ToLower()) && game.Platform.Contains(FilterPlatformPersonal.SelectedItem as string) && game.Genre.Contains(FilterGenrePersonal.SelectedItem as string) && game.ReleaseDate.Year.Equals(FilterReleasePersonal.SelectedItem));
+                PersonalDataGrid.ItemsSource = null;
+                PersonalDataGrid.ItemsSource = newList;
+
+            }
+            else if (SearchBoxPersonal.Text != "" && FilterPlatformPersonal.SelectedIndex != -1 && FilterGenrePersonal.SelectedIndex != -1 && FilterReleasePersonal.SelectedIndex == -1) //Search, Platform, Genre
+            {
+                var newList = Games.PersonallyList.Where(game => game.Titel.ToLower().Contains(SearchBoxPersonal.Text.ToLower()) && game.Platform.Contains(FilterPlatformPersonal.SelectedItem as string) && game.Genre.Contains(FilterGenrePersonal.SelectedItem as string));
+                PersonalDataGrid.ItemsSource = null;
+                PersonalDataGrid.ItemsSource = newList;
+
+
+            }
+            else if (SearchBoxPersonal.Text != "" && FilterPlatformPersonal.SelectedIndex != -1 && FilterGenrePersonal.SelectedIndex == -1 && FilterReleasePersonal.SelectedIndex != -1) // Search, Platform, Release
+            {
+                var newList = Games.PersonallyList.Where(game => game.Titel.ToLower().Contains(SearchBoxPersonal.Text.ToLower()) && game.Platform.Contains(FilterPlatformPersonal.SelectedItem as string) && game.ReleaseDate.Year.Equals(FilterReleasePersonal.SelectedItem));
+                PersonalDataGrid.ItemsSource = null;
+                PersonalDataGrid.ItemsSource = newList;
+
+
+            }
+            else if (SearchBoxPersonal.Text != "" && FilterPlatformPersonal.SelectedIndex == -1 && FilterGenrePersonal.SelectedIndex != -1 && FilterReleasePersonal.SelectedIndex != -1) // Search, Genre, Release
+            {
+                var newList = Games.PersonallyList.Where(game => game.Titel.ToLower().Contains(SearchBoxPersonal.Text.ToLower()) && game.Genre.Contains(FilterGenrePersonal.SelectedItem as string) && game.ReleaseDate.Year.Equals(FilterReleasePersonal.SelectedItem));
+                PersonalDataGrid.ItemsSource = null;
+                PersonalDataGrid.ItemsSource = newList;
+
+
+            }
+            else if (SearchBoxPersonal.Text == "" && FilterPlatformPersonal.SelectedIndex != -1 && FilterGenrePersonal.SelectedIndex != -1 && FilterReleasePersonal.SelectedIndex != -1) // Platform, Genre, Release
+            {
+                var newList = Games.PersonallyList.Where(game => game.Platform.Contains(FilterPlatformPersonal.SelectedItem as string) && game.Genre.Contains(FilterGenrePersonal.SelectedItem as string) && game.ReleaseDate.Year.Equals(FilterReleasePersonal.SelectedItem));
+                PersonalDataGrid.ItemsSource = null;
+                PersonalDataGrid.ItemsSource = newList;
+
+            }
+            else if (SearchBoxPersonal.Text != "" && FilterPlatformPersonal.SelectedIndex == -1 && FilterGenrePersonal.SelectedIndex == -1 && FilterReleasePersonal.SelectedIndex == -1) // Search
+            {
+                var newList = Games.PersonallyList.Where(game => game.Titel.ToLower().Contains(SearchBoxPersonal.Text.ToLower()));
+                PersonalDataGrid.ItemsSource = null;
+                PersonalDataGrid.ItemsSource = newList;
+            }
+            else if (SearchBoxPersonal.Text == "" && FilterPlatformPersonal.SelectedIndex != -1 && FilterGenrePersonal.SelectedIndex == -1 && FilterReleasePersonal.SelectedIndex == -1) //Platform
+            {
+                var newList = Games.PersonallyList.Where(game => game.Platform.Contains(FilterPlatformPersonal.SelectedItem as string));
+                PersonalDataGrid.ItemsSource = null;
+                PersonalDataGrid.ItemsSource = newList;
+            }
+            else if (SearchBoxPersonal.Text == "" && FilterPlatformPersonal.SelectedIndex == -1 && FilterGenrePersonal.SelectedIndex != -1 && FilterReleasePersonal.SelectedIndex == -1) //Genre
+            {
+                var newList = Games.PersonallyList.Where(game => game.Genre.Contains(FilterGenrePersonal.SelectedItem as string));
+                PersonalDataGrid.ItemsSource = null;
+                PersonalDataGrid.ItemsSource = newList;
+
+            }
+            else if (SearchBoxPersonal.Text == "" && FilterPlatformPersonal.SelectedIndex == -1 && FilterGenrePersonal.SelectedIndex == -1 && FilterReleasePersonal.SelectedIndex != -1) // Release
+            {
+                var newList = Games.PersonallyList.Where(game => game.ReleaseDate.Year.Equals(FilterReleasePersonal.SelectedItem));
+                PersonalDataGrid.ItemsSource = null;
+                PersonalDataGrid.ItemsSource = newList;
+
+            }
+            else if (SearchBoxPersonal.Text != "" && FilterPlatformPersonal.SelectedIndex != -1 && FilterGenrePersonal.SelectedIndex == -1 && FilterReleasePersonal.SelectedIndex == -1) //Search, Platform
+            {
+                var newList = Games.PersonallyList.Where(game => game.Titel.ToLower().Contains(SearchBoxPersonal.Text.ToLower()) && game.Platform.Contains(FilterPlatformPersonal.SelectedItem as string));
+                PersonalDataGrid.ItemsSource = null;
+                PersonalDataGrid.ItemsSource = newList;
+
+            }
+            else if (SearchBoxPersonal.Text != "" && FilterPlatformPersonal.SelectedIndex == -1 && FilterGenrePersonal.SelectedIndex != -1 && FilterReleasePersonal.SelectedIndex == -1) // Search, Genre
+            {
+                var newList = Games.PersonallyList.Where(game => game.Titel.ToLower().Contains(SearchBoxPersonal.Text.ToLower()) && game.Genre.Contains(FilterGenrePersonal.SelectedItem as string));
+                PersonalDataGrid.ItemsSource = null;
+                PersonalDataGrid.ItemsSource = newList;
+
+            }
+            else if (SearchBoxPersonal.Text != "" && FilterPlatformPersonal.SelectedIndex == -1 && FilterGenrePersonal.SelectedIndex == -1 && FilterReleasePersonal.SelectedIndex != -1) // Search, Release
+            {
+                var newList = Games.PersonallyList.Where(game => game.Titel.ToLower().Contains(SearchBoxPersonal.Text.ToLower()) && game.ReleaseDate.Year.Equals(FilterReleasePersonal.SelectedItem));
+                PersonalDataGrid.ItemsSource = null;
+                PersonalDataGrid.ItemsSource = newList;
+
+            }
+            else if (SearchBoxPersonal.Text == "" && FilterPlatformPersonal.SelectedIndex == -1 && FilterGenrePersonal.SelectedIndex != -1 && FilterReleasePersonal.SelectedIndex != -1) //Genre, Release
+            {
+                var newList = Games.PersonallyList.Where(game => game.Genre.Contains(FilterGenrePersonal.SelectedItem as string) && game.ReleaseDate.Year.Equals(FilterReleasePersonal.SelectedItem));
+                PersonalDataGrid.ItemsSource = null;
+                PersonalDataGrid.ItemsSource = newList;
+
+            }
+            else if (SearchBoxPersonal.Text == "" && FilterPlatformPersonal.SelectedIndex != -1 && FilterGenrePersonal.SelectedIndex != -1 && FilterReleasePersonal.SelectedIndex == -1) // Platform, Genre
+            {
+                var newList = Games.PersonallyList.Where(game => game.Platform.Contains(FilterPlatformPersonal.SelectedItem as string) && game.Genre.Contains(FilterGenrePersonal.SelectedItem as string));
+                PersonalDataGrid.ItemsSource = null;
+                PersonalDataGrid.ItemsSource = newList;
+
+            }
+            else if (SearchBoxPersonal.Text == "" && FilterPlatformPersonal.SelectedIndex != -1 && FilterGenrePersonal.SelectedIndex == -1 && FilterReleasePersonal.SelectedIndex != -1)// platform, Release
+            {
+                var newList = Games.PersonallyList.Where(game => game.Platform.Contains(FilterPlatformPersonal.SelectedItem as string) && game.ReleaseDate.Year.Equals(FilterReleasePersonal.SelectedItem));
+                PersonalDataGrid.ItemsSource = null;
+                PersonalDataGrid.ItemsSource = newList;
+
+            }
+            else
+            {
+                PersonalDataGrid.ItemsSource = null;
+                PersonalDataGrid.ItemsSource = Games.PersonallyList;
+            }
+        }
+        private void ResetFilterPersonal(object sender, RoutedEventArgs e)
+        {
+            FilterPlatformPersonal.SelectedIndex = -1;
+            FilterReleasePersonal.SelectedIndex = -1;
+            FilterGenrePersonal.SelectedIndex = -1;
+            SearchBoxPersonal.Clear();
+            PersonalDataGrid.ItemsSource = null;
+            PersonalDataGrid.ItemsSource = Games.PersonallyList;
+            
+        }
     }
 
 }

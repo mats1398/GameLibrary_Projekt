@@ -6,15 +6,15 @@ namespace GameLibrary_Projekt
 {
     public class Games
     {
-        public static List<Game> gamelist { get; set; } = GetGames();
-        public static List<Game> PersonallyList { get; set; } = GetPersonallyGames();
+        public static List<Game> gamelist { get; set; } = GetGames(@"all_games.csv");
+        public static List<Game> PersonallyList { get; set; } = GetGames(@"C:\Users\Mats Ramsl\Desktop\Lokale Daten\SavedGames.txt");
 
-        public static List<Game> GetGames()
+        public static List<Game> GetGames(string pfad)
         {
            
 
             var list = new List<Game>();
-            string pfad = @"all_games.csv";
+            
             File.ReadAllLines(pfad);
             var reader = new StreamReader(pfad);
             string line =  reader.ReadLine();
@@ -34,8 +34,7 @@ namespace GameLibrary_Projekt
             while ((line = reader.ReadLine()) != null)
             {
                
-                    line = line.Replace("\"", String.Empty);
-                //line.Replace("\\", String.Empty);
+                line = line.Replace("\"", String.Empty);            
               
                 
                 column = line.Split(',' );
@@ -54,29 +53,17 @@ namespace GameLibrary_Projekt
                 }
                 
                 
-                game.Plattform = column[1];
-
-                if (game.ReleaseDate <= DateTime.Now)
-                {
-                    game.IsPublished = true;
-                }
+                game.Platform = column[1];
                 
                 for (int i = 4 ; i < column.Length-2; i++)
                 {
                     
                     game.GameDetails += column[i];
                 }
-                game.Image = GetRandomImagePath();
-                game.Genre = GetGenre(counter);
-               
+                game.Image = GetImagePath(counter);
+                game.Genre = GetGenre(counter);             
                 
-                    list.Add(game);
-
-
-
-
-
-
+                list.Add(game);
                 counter += random;
             }
             reader.Close();
@@ -92,60 +79,7 @@ namespace GameLibrary_Projekt
 
 
         }
-        public static List<Game> GetPersonallyGames()
-        {
-            var list = new List<Game>();
-            string pfad = @"C:\Users\Mats Ramsl\Desktop\Lokale Daten\SavedGames.txt";
-            File.ReadAllLines(pfad);
-            var reader = new StreamReader(pfad);
-            string line = reader.ReadLine();
-
-
-
-            string[] column = line.Split(',');
-
-
-            if (column.Length != 4)
-            {
-                throw new FileFormatException("Wrong format");
-            }
-            while ((line = reader.ReadLine()) != null)
-            {
-
-                line = line.Replace("\"", String.Empty);
-                //line.Replace("\\", String.Empty);
-
-
-                column = line.Split(',', '-');
-                Game game = new Game();
-                game.Score = int.Parse(column[column.Length - 1]);
-                game.Review = column[column.Length - 2];
-
-                game.Titel = column[column.Length - 3].Replace("Review", "");
-                game.ReleaseDate = GetRandomDate();
-                if (game.ReleaseDate <= DateTime.Now)
-                {
-                    game.IsPublished = true;
-                }
-                int j = 0;
-                for (int i = column.Length - 4; i >= 0; i--)
-                {
-                    string platform = column[i].Replace(" ", String.Empty);
-                    game.Plattform += platform;
-                    j++;
-                }
-                game.Image = GetRandomImagePath();
-                game.GameDetails = "Hallo";
-                list.Add(game);
-
-
-
-
-            }
-            reader.Close();
-            return list;
-
-        }
+        
         public static string GetGenre(int counter)
         {
             int zahl = counter % 10;
@@ -185,16 +119,17 @@ namespace GameLibrary_Projekt
             {
                 return "Military";
             }
-            else             {
+            else 
+            {
                 return "Phantasie";
             }
 
         }
-        public static string GetRandomImagePath()
+        public static string GetImagePath( int counter)
         {
-            Random rnd = new Random();
-            int random =  rnd.Next(1, 7);
-            string s = $"/ExampleGameImages/Bild{random}.jpg";
+            int zahl = (counter % 10) + 1;         
+
+            string s = $"/ExampleGameImages/Bild{zahl}.jpg";
             return s;
 
         }
