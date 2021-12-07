@@ -472,7 +472,7 @@ namespace GameLibrary_Projekt
                StreamWriter sWriter = new StreamWriter(stream);
 
 
-                sWriter.WriteLine("My Games:");
+                sWriter.WriteLine($"My Games: \n __________________________________________\n");
 
                 foreach (Game game in Games.PersonallyList)
                 {

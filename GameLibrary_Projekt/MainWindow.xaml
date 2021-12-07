@@ -185,7 +185,6 @@
                 </DockPanel>
             </Grid>
 
-
             <Grid x:Name="Personal" Visibility="Collapsed">
                 <DockPanel>
                     <StackPanel DockPanel.Dock="Top" Height="50" Margin="10"  Orientation="Horizontal">
@@ -220,43 +219,10 @@
                             <DataGridTextColumn Header="Review" Binding="{Binding Review, UpdateSourceTrigger=PropertyChanged}"/>
                             <DataGridTextColumn Header="Comment" Binding="{Binding Comment, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
                         </DataGrid.Columns>
-                        <!--<DataGrid.RowDetailsTemplate>
-
-                            <DataTemplate>
-                                <StackPanel>
-                                    <TextBlock Text="Game-Details: " FontSize="25" FontWeight="Bold"/>
-                                    <StackPanel Orientation="Horizontal">
-                                        <Image Source="{Binding Image}" Width="80" />
-
-                                        <TextBlock Text="{Binding GameDetails}" TextWrapping="Wrap" Width="450" Margin="20,0,0,0" />
-                                        <TextBlock/>
-                                    </StackPanel>
-                                </StackPanel>
-                            </DataTemplate>
-                        </DataGrid.RowDetailsTemplate>-->
-                        <!--Datepicker einbauen, um das Datum einzupflegen, wann das Spiel gespielt wurde-->
+                       
                     </DataGrid>
                 </DockPanel>
             </Grid>
-
-            <!--<DataGrid Name="listview" ItemsSource="{Binding gamelist}" DisplayMemberPath="Titel" Background="LightGray" Margin="0,0,0.4,26" RowBackground="LightGray" AlternatingRowBackground="Wheat"  >
-
-            </DataGrid>-->
-            <!--<ListView Background="Green" Name="GameLibrary" >
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <UniformGrid Columns="5" HorizontalAlignment="Stretch"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel Orientation="Vertical" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-                            <Image  Source="/ExampleImages/Spiel1_original.jpg" HorizontalAlignment="Stretch" VerticalAlignment="Top" Stretch="UniformToFill" />
-                            <TextBlock Name="Text" HorizontalAlignment="Stretch" VerticalAlignment="Bottom" />
-                        </StackPanel>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>-->
         </DockPanel>
     </Border>
 </Window>

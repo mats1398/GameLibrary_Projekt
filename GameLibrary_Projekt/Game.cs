@@ -23,7 +23,7 @@ namespace GameLibrary_Projekt
         public override string ToString()
         {
             
-            return $"\n __________________________________________\n Titel: {Titel} \nReleaseDate: {ReleaseDate:MMMM dd, yyyy} \nPlatform: {Platform} \nGenre: {Genre} \nComment:{Comment}\n\n";
+            return $" Titel: {Titel} \nReleaseDate: {ReleaseDate:MMMM dd, yyyy} \nPlatform: {Platform} \nGenre: {Genre} \nComment:{Comment}\n\n";
         }
 
 
