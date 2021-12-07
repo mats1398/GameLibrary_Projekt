@@ -19,6 +19,7 @@ namespace GameLibrary_Projekt
 
         public string Genre { get; set; }
         public bool IsPublished { get; set; } //
+        public string  Comment { get; set; }
         public override string ToString()
         {
             

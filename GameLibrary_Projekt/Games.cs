@@ -7,11 +7,19 @@ namespace GameLibrary_Projekt
     public class Games
     {
         public static List<Game> gamelist { get; set; } = GetGames(@"all_games.csv");
-        public static List<Game> PersonallyList { get; set; } = GetGames(@"C:\Users\Mats Ramsl\Desktop\Lokale Daten\SavedGames.txt");
+        public static List<Game> PersonallyList { get; set; } = GetGames(@"c:..\SavedGames.txt");
 
         public static List<Game> GetGames(string pfad)
         {
-           
+            if (pfad == @"c:..\SavedGames.txt")
+            {
+                if (File.Exists(pfad) == false)
+                {
+                    File.WriteAllText(pfad, $"Name, Platform, ReleaseDate, Summary, MetaScore, UserReview, Comment \n");
+                }
+                
+                
+            }
 
             var list = new List<Game>();
             
@@ -25,20 +33,38 @@ namespace GameLibrary_Projekt
 
             
             string[] column = line.Split(',');
-            if (column.Length != 6)
+            if (pfad == @"c:..\SavedGames.txt")
             {
-                throw new FileFormatException("Wrong Format");
+                if (column.Length != 7)
+                {
+                    throw new FileFormatException("Wrong Format");
+                }
             }
+            else
+            {
+                if (column.Length != 6)
+                {
+                    throw new FileFormatException("Wrong Format");
+                }
+            }
+            
             
             
             while ((line = reader.ReadLine()) != null)
             {
                
-                line = line.Replace("\"", String.Empty);            
+                line = line.Replace("\"", String.Empty);
+                Game game = new Game();
+                if (pfad == @"c:..\SavedGames.txt")
+                {
+                    string[] specialColumn= line.Split('<');
+                    game.Comment = specialColumn[1];
+                    line = specialColumn[0];
+                }
               
                 
                 column = line.Split(',' );
-                Game game = new Game();
+                
                 game.Score = int.Parse(column[column.Length -2]);
                 game.Review = column[column.Length - 1];
                 

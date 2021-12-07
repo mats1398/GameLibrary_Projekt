@@ -19,7 +19,7 @@ namespace GameLibrary_Projekt
         {
            InitializeComponent();
         }
-        string pfad = @"C:\Users\Mats Ramsl\Desktop\Lokale Daten\SavedGames.txt";
+        string pfad = @"c:..\SavedGames.txt";
 
         private void MoveApp(object sender, MouseButtonEventArgs e)
         {
@@ -73,18 +73,19 @@ namespace GameLibrary_Projekt
         private void ChangePersonalGame()
         {
             var list = Games.PersonallyList;
-            string newList = $"Name, Platform, ReleaseDate, Summary, MetaScore, UserReview \n";
+            string newList = $"Name, Platform, ReleaseDate, Summary, MetaScore, UserReview, Comment \n";
            
             for (int i = 0; i < list.Count; i++)
             {
-                newList += $"{list[i].Titel}, {list[i].Platform}, {list[i].ReleaseDate:MMMM dd, yyyy}, {list[i].GameDetails}, {list[i].Score}, {list[i].Review} \n";
+                newList += $"{list[i].Titel}, {list[i].Platform}, {list[i].ReleaseDate:MMMM dd, yyyy}, {list[i].GameDetails}, {list[i].Score}, {list[i].Review} <{list[i].Comment} \n";
             }
             File.WriteAllText(pfad, newList);
         }       
 
         private void PersonalDataGrid_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (sender.GetType().Name == e.OriginalSource.GetType().Name)
+            string s = sender.GetType().Name;
+            if ("DataGridCell" == e.OriginalSource.GetType().Name)
             {
                 if (e.Key == Key.Delete)
                 {
@@ -106,14 +107,19 @@ namespace GameLibrary_Projekt
         private void DeleteGame(Game game)
         {
             var list = Games.PersonallyList;
-            string newList = $"Name, Platform, ReleaseDate, Summary, MetaScore, UserReview \n";
+            
+            string newList = $"Name, Platform, ReleaseDate, Summary, MetaScore, UserReview, Comment \n";
             for (int i = 0; i < list.Count; i++)
             {
                 
                 if (list[i].Titel != game.Titel)
                 {
-                    newList += $"{list[i].Titel}, {list[i].Platform}, {list[i].ReleaseDate:MMMM dd, yyyy}, {list[i].GameDetails}, {list[i].Score}, {list[i].Review} \n";
+                    newList += $"{list[i].Titel}, {list[i].Platform}, {list[i].ReleaseDate:MMMM dd, yyyy}, {list[i].GameDetails}, {list[i].Score}, {list[i].Review}, <{list[i].Comment} \n";
                 }
+                //else
+                //{
+                //    Games.PersonallyList.Remove(game);
+                //}
                 
                   
 
@@ -149,7 +155,7 @@ namespace GameLibrary_Projekt
         {
             Game game = (Game)SearchDataGrid.SelectedItem;
 
-            string newLine = $"{game.Titel}, {game.Platform}, {game.ReleaseDate:MMMM dd, yyyy}, {game.GameDetails}, {game.Score}, {game.Review} \n";    // Console,GameName,Review,Score
+            string newLine = $"{game.Titel}, {game.Platform}, {game.ReleaseDate:MMMM dd, yyyy}, {game.GameDetails}, {game.Score}, {game.Review} <{game.Comment} \n";    // Console,GameName,Review,Score
             File.AppendAllText(pfad, newLine);
             Games.PersonallyList.Add(game);
             var  newList = Games.PersonallyList;
@@ -455,20 +461,18 @@ namespace GameLibrary_Projekt
             {
                Stream stream = saveFile.OpenFile();
                StreamWriter sWriter = new StreamWriter(stream);
-                string text = File.ReadAllText(pfad);
-                
-               sWriter.WriteLine(text);
 
-                //sWriter.WriteLine("My Games:");
 
-                //foreach (Game game in Games.PersonallyList)
-                //{
-                //    sWriter.WriteLine(game);
-                //}
-                //sWriter.Close();
-                //stream.Close();
+                sWriter.WriteLine("My Games:");
+
+                foreach (Game game in Games.PersonallyList)
+                {
+                    sWriter.WriteLine(game);
+                }
+                sWriter.Close();
+                stream.Close();
+
                 
-               //File.Create(stream.Name)
             }
             
         }

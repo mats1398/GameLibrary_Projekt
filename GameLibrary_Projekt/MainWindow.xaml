@@ -77,9 +77,9 @@
             <sys:String>Phantasie</sys:String>
 
         </x:Array>
-        
+
     </Window.Resources>
-    
+
     <Border BorderThickness="0" CornerRadius="19" MouseDown="MoveApp" Background="#FFFFF0" MinHeight="450" MinWidth="800" >
         <DockPanel>
             <DockPanel Background="#698B69" DockPanel.Dock="Top" Height="23"  >
@@ -89,10 +89,10 @@
                 <Button  DockPanel.Dock="Right" Width="19" Height="23"  BorderThickness="0" Background="Transparent" FontSize="30" VerticalAlignment="Bottom"   Click="ShutDown"  Cursor="Hand" RenderTransformOrigin="0.474,0.362">
                     <TextBlock Text="X" VerticalAlignment="Center" Height="42"/>
                 </Button>
-                <Button  DockPanel.Dock="Right" Width="33" Height="23"  BorderThickness="0" Background="Transparent" FontSize="12"     Click="Minimize" Cursor="Hand" Margin="750,0,0,0" >
-                    
-                    <TextBlock Text="-" Width="12" FontWeight="Bold" FontSize="30" Height="42" VerticalAlignment="Center"/>
-                   
+                <Button  DockPanel.Dock="Right" Width="41" Height="23"  BorderThickness="0" Background="Transparent" FontSize="14"     Click="Minimize" Cursor="Hand" Margin="845,0,0,0" >
+
+                    <TextBlock Text="-" Width="12" FontWeight="Bold" FontSize="30" Height="47" VerticalAlignment="Center"/>
+
                 </Button>
             </DockPanel>
             <StackPanel Name="Dock" DockPanel.Dock="Left"  Width="114" Margin="0,-0.2,0,22.6"  Background="#B4EEB4" >
@@ -102,24 +102,24 @@
                 <Button x:Name="SavePersonalListButton" Background="Transparent" Margin="0,330" BorderBrush="Transparent" Click="OnSavePersonalList" Visibility="Collapsed">
                     <Image Source="/Pictograms/Save.png" ToolTip="Save Personallist"  Width="60"/>
 
-                    
+
                 </Button>
 
 
 
 
-               
+
 
             </StackPanel >
-        
+
             <Grid x:Name="GridSearch" Visibility="Visible">
                 <DockPanel>
                     <StackPanel DockPanel.Dock="Top" Height="50" Margin="10"  Orientation="Horizontal">
                         <TextBlock Text="Search: " VerticalAlignment="Center" Margin="0,17" />
                         <TextBox Name ="SearchBox" VerticalAlignment="Center" Margin="5,10" Width="90" Background="LightGray" TextChanged="Search_TextChanged"/>
-                        
-                            <!--<Image Source="/Pictograms/search.png" Height="20"  Margin="10,0" Width="22" />-->
-                        
+
+                        <!--<Image Source="/Pictograms/search.png" Height="20"  Margin="10,0" Width="22" />-->
+
 
                         <TextBlock Text="Plaform: " VerticalAlignment="Center" />
                         <ComboBox  x:Name="FilterPlatform" Width="100" Height="20" ItemsSource="{StaticResource Platform}" SelectionChanged="PlatformChanged"/>
@@ -135,27 +135,27 @@
 
                         <Button Content="Reset Filter" Background="Transparent"  Height="30" HorizontalAlignment="Right" Margin="30,0" Click="ResetFilter"/>
 
-                        
+
 
 
                     </StackPanel>
 
-                    <DataGrid x:Name="SearchDataGrid" ItemsSource="{Binding gamelist}" IsReadOnly="True"  Background="Transparent" RowBackground="Transparent" Margin="0,0,0,20" FontSize="12" AutoGenerateColumns="False" GridLinesVisibility="None" AreRowDetailsFrozen="True">
+                    <DataGrid x:Name="SearchDataGrid" ItemsSource="{Binding gamelist}" IsReadOnly="True"  Background="Transparent" RowBackground="Transparent" Margin="0,0,0,20" FontSize="12" AutoGenerateColumns="False" GridLinesVisibility="None" AreRowDetailsFrozen="True" >
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="Save">
-                                
-                                    <DataGridTemplateColumn.CellTemplate>
-                                        <DataTemplate>
+
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
                                         <Button Click="AddGameToPersonal" Content="Add"/>
 
 
 
 
                                     </DataTemplate>
-                                    </DataGridTemplateColumn.CellTemplate>
-                              
+                                </DataGridTemplateColumn.CellTemplate>
+
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="Gametitel" Binding="{Binding Titel}" />
+                            <DataGridTextColumn Header="Gametitel" Binding="{Binding Titel}" Width="*"/>
                             <!--<DataGridCheckBoxColumn Header="IsPublished" Binding="{Binding IsPublished}" IsReadOnly="True"/>-->
                             <DataGridTextColumn Header="ReleaseDate" Binding="{Binding ReleaseDate, StringFormat=dd/M/yyyy}" />
                             <DataGridTextColumn Header="Platform" Binding="{Binding Platform}"/>
@@ -168,15 +168,15 @@
 
                         </DataGrid.Columns>
                         <DataGrid.RowDetailsTemplate>
-                            
+
                             <DataTemplate>
                                 <StackPanel>
                                     <TextBlock Text="Game-Details: " FontSize="25" FontWeight="Bold"/>
                                     <StackPanel Orientation="Horizontal">
-                                    <Image Source="{Binding Image}" Width="80" />
+                                        <Image Source="{Binding Image}" Width="80" />
 
-                                    <TextBlock Text="{Binding GameDetails}" TextWrapping="Wrap" Width="450" Margin="20,0,0,0" />
-                                    <TextBlock/>
+                                        <TextBlock Text="{Binding GameDetails}" TextWrapping="Wrap" Width="450" Margin="20,0,0,0" />
+                                        <TextBlock/>
                                     </StackPanel>
                                 </StackPanel>
                             </DataTemplate>
@@ -184,8 +184,8 @@
                     </DataGrid>
                 </DockPanel>
             </Grid>
-            
-            
+
+
             <Grid x:Name="Personal" Visibility="Collapsed">
                 <DockPanel>
                     <StackPanel DockPanel.Dock="Top" Height="50" Margin="10"  Orientation="Horizontal">
@@ -212,12 +212,13 @@
                     <DataGrid x:Name="PersonalDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding PersonallyList}" Background="Transparent" RowBackground="Transparent" Margin="0,0,0,20" FontSize="12" GridLinesVisibility="None" RowEditEnding="Personal_RowEditEnding"  PreviewKeyDown="PersonalDataGrid_PreviewKeyDown">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Gametitel" Binding="{Binding Titel, UpdateSourceTrigger=PropertyChanged}" />
-                                <DataGridTextColumn Header="ReleaseDate" Binding="{Binding ReleaseDate, StringFormat=dd/M/yyyy, UpdateSourceTrigger=PropertyChanged}" />
-                           
-                                <DataGridTextColumn Header="Platform" Binding="{Binding Platform, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="ReleaseDate" Binding="{Binding ReleaseDate, StringFormat=dd/M/yyyy, UpdateSourceTrigger=PropertyChanged}" />
+
+                            <DataGridTextColumn Header="Platform" Binding="{Binding Platform, UpdateSourceTrigger=PropertyChanged}"/>
                             <DataGridTextColumn Header="Genre" Binding="{Binding Genre, UpdateSourceTrigger=PropertyChanged}"/>
                             <DataGridTextColumn Header="Score" Binding="{Binding Score, UpdateSourceTrigger=PropertyChanged}"/>
-                                <DataGridTextColumn Header="Review" Binding="{Binding Review, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Review" Binding="{Binding Review, UpdateSourceTrigger=PropertyChanged}"/>
+                            <DataGridTextColumn Header="Comment" Binding="{Binding Comment, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
                         </DataGrid.Columns>
                         <!--<DataGrid.RowDetailsTemplate>
 
