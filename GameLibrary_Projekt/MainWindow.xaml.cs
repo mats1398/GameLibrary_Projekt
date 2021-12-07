@@ -154,13 +154,22 @@ namespace GameLibrary_Projekt
         private void AddGameToPersonal(object sender, RoutedEventArgs e)
         {
             Game game = (Game)SearchDataGrid.SelectedItem;
-
-            string newLine = $"{game.Titel}, {game.Platform}, {game.ReleaseDate:MMMM dd, yyyy}, {game.GameDetails}, {game.Score}, {game.Review} <{game.Comment} \n";    // Console,GameName,Review,Score
-            File.AppendAllText(pfad, newLine);
-            Games.PersonallyList.Add(game);
-            var  newList = Games.PersonallyList;
-            PersonalDataGrid.ItemsSource = null;
-            PersonalDataGrid.ItemsSource = newList;
+            
+            if (Games.PersonallyList.Contains(game) == false)
+            {
+                string newLine = $"{game.Titel}, {game.Platform}, {game.ReleaseDate:MMMM dd, yyyy}, {game.GameDetails}, {game.Score}, {game.Review} <{game.Comment} \n";    // Console,GameName,Review,Score
+                File.AppendAllText(pfad, newLine);
+                Games.PersonallyList.Add(game);
+                var newList = Games.PersonallyList;
+                PersonalDataGrid.ItemsSource = null;
+                PersonalDataGrid.ItemsSource = newList;
+            }
+            else
+            {
+                MessageBox.Show("You already have this Game in your Gibrary", "", MessageBoxButton.OK);
+                
+            }
+            
         }
 
         
