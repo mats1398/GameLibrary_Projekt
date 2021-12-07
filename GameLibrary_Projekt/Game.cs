@@ -21,11 +21,7 @@ namespace GameLibrary_Projekt
         public bool IsPublished { get; set; } //
         public override string ToString()
         {
-            string plattform = "";
-            foreach (var item in Platform)
-            {
-                plattform += $", {item}";
-            }
+            
             return $"Titel: {Titel}";
         }
 

@@ -150,5 +150,8 @@
     <Resource Include="ExampleGameImages\Bild8.jpg" />
     <Resource Include="ExampleGameImages\Bild9.jpg" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Pictograms\Save.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

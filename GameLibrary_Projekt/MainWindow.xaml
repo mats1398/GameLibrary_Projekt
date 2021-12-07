@@ -99,6 +99,11 @@
 
                 <RadioButton Height="80" Content="Search Games" IsChecked="True" Style="{StaticResource SideBarButton}" Click="ChangeToSearchGames" />
                 <RadioButton Height="80" Content="Your Games"  Style="{StaticResource SideBarButton}"  Click="ChangeToPersonalGames" />
+                <Button x:Name="SavePersonalListButton" Background="Transparent" Margin="0,330" BorderBrush="Transparent" Click="OnSavePersonalList" Visibility="Collapsed">
+                    <Image Source="/Pictograms/Save.png" ToolTip="Save Personallist"  Width="60"/>
+
+                    
+                </Button>
 
 
 

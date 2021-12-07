@@ -1,9 +1,11 @@
 ﻿using GameLibrary_Projekt.UserControls;
+using Microsoft.Win32;
 using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+
 
 namespace GameLibrary_Projekt
 {
@@ -17,7 +19,7 @@ namespace GameLibrary_Projekt
         {
            InitializeComponent();
         }
-
+        string pfad = @"C:\Users\Mats Ramsl\Desktop\Lokale Daten\SavedGames.txt";
 
         private void MoveApp(object sender, MouseButtonEventArgs e)
         {
@@ -50,13 +52,16 @@ namespace GameLibrary_Projekt
         private void ChangeToSearchGames(object sender, RoutedEventArgs e)
         {
             Personal.Visibility = Visibility.Collapsed;
-            GridSearch.Visibility = Visibility.Visible;       
+            GridSearch.Visibility = Visibility.Visible;
+            SavePersonalListButton.Visibility = Visibility.Collapsed;
         }
 
         private void ChangeToPersonalGames(object sender, RoutedEventArgs e)
         {
             GridSearch.Visibility = Visibility.Collapsed;
             Personal.Visibility = Visibility.Visible;
+            SavePersonalListButton.Visibility = Visibility.Visible;
+
         }
 
         private void Personal_RowEditEnding(object sender, System.Windows.Controls.DataGridRowEditEndingEventArgs e)
@@ -68,8 +73,8 @@ namespace GameLibrary_Projekt
         private void ChangePersonalGame()
         {
             var list = Games.PersonallyList;
-            string newList = $"Console, GameName,Review, Score \n";
-            string pfad = @"C:\Users\Mats Ramsl\Desktop\Lokale Daten\SavedGames.txt";
+            string newList = $"Name, Platform, ReleaseDate, Summary, MetaScore, UserReview \n";
+           
             for (int i = 0; i < list.Count; i++)
             {
                 newList += $"{list[i].Titel}, {list[i].Platform}, {list[i].ReleaseDate:MMMM dd, yyyy}, {list[i].GameDetails}, {list[i].Score}, {list[i].Review} \n";
@@ -102,7 +107,6 @@ namespace GameLibrary_Projekt
         {
             var list = Games.PersonallyList;
             string newList = $"Name, Platform, ReleaseDate, Summary, MetaScore, UserReview \n";
-            string pfad = @"C:\Users\Mats Ramsl\Desktop\Lokale Daten\SavedGames.txt";
             for (int i = 0; i < list.Count; i++)
             {
                 
@@ -144,7 +148,7 @@ namespace GameLibrary_Projekt
         private void AddGameToPersonal(object sender, RoutedEventArgs e)
         {
             Game game = (Game)SearchDataGrid.SelectedItem;
-            string pfad = @"C:\Users\Mats Ramsl\Desktop\Lokale Daten\SavedGames.txt";
+
             string newLine = $"{game.Titel}, {game.Platform}, {game.ReleaseDate:MMMM dd, yyyy}, {game.GameDetails}, {game.Score}, {game.Review} \n";    // Console,GameName,Review,Score
             File.AppendAllText(pfad, newLine);
             Games.PersonallyList.Add(game);
@@ -435,6 +439,37 @@ namespace GameLibrary_Projekt
             SearchBoxPersonal.Clear();
             PersonalDataGrid.ItemsSource = null;
             PersonalDataGrid.ItemsSource = Games.PersonallyList;
+            
+        }
+
+        private void OnSavePersonalList(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFile = new SaveFileDialog();
+            saveFile.InitialDirectory = @"C:\";
+            saveFile.RestoreDirectory = true;
+            saveFile.Filter = "txt files (*.txt) | *.txt";
+            saveFile.DefaultExt = "txt";
+            saveFile.FileName = "Name_PersonalGameList.txt";
+            bool? result = saveFile.ShowDialog();
+            if (result == true)
+            {
+               Stream stream = saveFile.OpenFile();
+               StreamWriter sWriter = new StreamWriter(stream);
+                string text = File.ReadAllText(pfad);
+                
+               sWriter.WriteLine(text);
+
+                //sWriter.WriteLine("My Games:");
+
+                //foreach (Game game in Games.PersonallyList)
+                //{
+                //    sWriter.WriteLine(game);
+                //}
+                //sWriter.Close();
+                //stream.Close();
+                
+               //File.Create(stream.Name)
+            }
             
         }
     }
