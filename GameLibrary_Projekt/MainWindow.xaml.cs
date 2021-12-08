@@ -19,7 +19,7 @@ namespace GameLibrary_Projekt
         {
            InitializeComponent();
         }
-        string pfad = @"c:..\SavedGames.txt";
+        private string pfad = @"c:..\SavedGames.txt";
 
         private void MoveApp(object sender, MouseButtonEventArgs e)
         {
@@ -112,9 +112,9 @@ namespace GameLibrary_Projekt
             for (int i = 0; i < list.Count; i++)
             {
                 
-                if (list[i].Titel != game.Titel)
+                if (list[i].Titel != game.Titel && list[i].Genre != game.Genre)
                 {
-                    newList += $"{list[i].Titel}, {list[i].Platform}, {list[i].ReleaseDate:MMMM dd, yyyy}, {list[i].GameDetails}, {list[i].Score}, {list[i].Review}, <{list[i].Comment} \n";
+                    newList += $"{list[i].Titel},{list[i].Platform}, {list[i].ReleaseDate:MMMM dd, yyyy}, {list[i].GameDetails}, {list[i].Score}, {list[i].Review} <{list[i].Comment} \n";
                 }
                 //else
                 //{

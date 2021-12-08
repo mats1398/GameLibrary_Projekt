@@ -9,16 +9,16 @@ namespace GameLibrary_Projekt
     public class Game 
     {
         // Eigenschaften
-        public string Titel { get; set; } //
-        public DateTime ReleaseDate { get; set; } //
-        public string GameDetails { get; set; } //
-        public string Platform { get; set; }//
-        public int Score { get; set; } //
-        public string Review { get; set; } //
+        public string Titel { get; set; } 
+        public DateTime ReleaseDate { get; set; } 
+        public string GameDetails { get; set; } 
+        public string Platform { get; set; }
+        public int Score { get; set; } 
+        public string Review { get; set; } 
         public string Image { get; set; }
 
         public string Genre { get; set; }
-        public bool IsPublished { get; set; } //
+        public bool IsPublished { get; set; } 
         public string  Comment { get; set; }
         public override string ToString()
         {
