@@ -58,7 +58,21 @@ namespace GameLibrary_Projekt
                 if (pfad == @"c:..\SavedGames.txt")
                 {
                     string[] specialColumn= line.Split('<');
-                    game.Comment = specialColumn[1];
+                    if (specialColumn.Length > 2)                        
+                    {
+                        string s = "";
+                        for (int i = 1; i < specialColumn.Length; i++)
+                        {
+                            s += specialColumn[i];
+                        }
+                        game.Comment = s;
+                    }
+                    else
+                    {
+                        game.Comment = specialColumn[1];
+
+                    }
+
                     line = specialColumn[0];
                 }
               
