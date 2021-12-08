@@ -77,7 +77,7 @@ namespace GameLibrary_Projekt
            
             for (int i = 0; i < list.Count; i++)
             {
-                newList += $"{list[i].Titel}, {list[i].Platform}, {list[i].ReleaseDate:MMMM dd, yyyy}, {list[i].GameDetails}, {list[i].Score}, {list[i].Review} <{list[i].Comment} \n";
+                newList += $"{list[i].Titel},{list[i].Platform},{list[i].ReleaseDate:MMMM dd, yyyy},{list[i].GameDetails},{list[i].Score},{list[i].Review} <{list[i].Comment} \n";
             }
             File.WriteAllText(pfad, newList);
         }       
@@ -114,7 +114,7 @@ namespace GameLibrary_Projekt
                 
                 if (list[i].Titel != game.Titel && list[i].Genre != game.Genre)
                 {
-                    newList += $"{list[i].Titel},{list[i].Platform}, {list[i].ReleaseDate:MMMM dd, yyyy}, {list[i].GameDetails}, {list[i].Score}, {list[i].Review} <{list[i].Comment} \n";
+                    newList += $"{list[i].Titel},{list[i].Platform},{list[i].ReleaseDate:MMMM dd, yyyy},{list[i].GameDetails},{list[i].Score},{list[i].Review} <{list[i].Comment} \n";
                 }
                 //else
                 //{
@@ -157,7 +157,7 @@ namespace GameLibrary_Projekt
             
             if (Games.PersonallyList.Contains(game) == false)
             {
-                string newLine = $"{game.Titel}, {game.Platform}, {game.ReleaseDate:MMMM dd, yyyy}, {game.GameDetails}, {game.Score}, {game.Review} <{game.Comment} \n";    // Console,GameName,Review,Score
+                string newLine = $"{game.Titel},{game.Platform},{game.ReleaseDate:MMMM dd, yyyy},{game.GameDetails},{game.Score},{game.Review} <{game.Comment} \n";    // Console,GameName,Review,Score
                 File.AppendAllText(pfad, newLine);
                 Games.PersonallyList.Add(game);
                 var newList = Games.PersonallyList;
