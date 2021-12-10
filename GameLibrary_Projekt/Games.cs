@@ -6,10 +6,16 @@ namespace GameLibrary_Projekt
 {
     public class Games
     {
-        public static List<Game> gamelist { get; set; } = GetGames(@"all_games.csv");
+        public static List<Game> GameList { get; set; } = GetGames(@"all_games.csv");
         public static List<Game> PersonallyList { get; set; } = GetGames(@"c:..\SavedGames.txt");
 
-        public static List<Game> GetGames(string pfad)
+        /// <summary>
+        /// Diese Methode ist dazu da, eine Datei mit Spieledaten auszulesen und diesee einer Liste hinzuzufügen. Die Liste, der die Spiele hinzugefügt werden, ernthält Instanzen von "Game"
+        /// </summary>
+        /// <param name="pfad"> Da zwei verschiedene Liste eingelesen werden, wird der Pfad jeweils mit übergeben</param>
+        /// <returns>Liste von Spielen </returns>
+
+        private static List<Game> GetGames(string pfad)
         {
             if (pfad == @"c:..\SavedGames.txt")
             {
@@ -119,8 +125,12 @@ namespace GameLibrary_Projekt
 
 
         }
-        
-        public static string GetGenre(int counter)
+        /// <summary>
+        /// Da die Dateien (all_Games.csv und SavedGames.txt) kein Genre enthalt, wird dies mit dieser Methode erzeugt
+        /// </summary>
+        /// <param name="counter"> Der Counter wird in der GetGames Methode auf einen Random-Wert gesetzt und mitübergeben. Dies wird getan, damit die Reihenfolge der Genere immer unterschidlich ist.</param>
+        /// <returns>Ein Genre als String</returns>
+        private static string GetGenre(int counter)
         {
             int zahl = counter % 10;
             if (zahl == 0)
@@ -165,7 +175,13 @@ namespace GameLibrary_Projekt
             }
 
         }
-        public static string GetImagePath( int counter)
+
+        /// <summary>
+        /// Da die Dateien (all_Games.csv und SavedGames.txt) kein CoberBild der Spiele enthalten, wird dies mit dieser Methode erzeugt
+        /// </summary>
+        /// <param name="counter"></param>
+        /// <returns>Ein String, der den Pfad zu einem Spiel darstellt</returns>
+        private static string GetImagePath( int counter)
         {
             int zahl = (counter % 10) + 1;         
 
@@ -173,7 +189,13 @@ namespace GameLibrary_Projekt
             return s;
 
         }
-        public static DateTime GetRandomDate()
+
+        /// <summary>
+        /// In der all_Games.csv ist die Bezichung innerhalb der Spalten unterschiedlich, weswegen stark Vereinzelt die Spalten nicht richtig eingelesen werden und nicht als Datum erkannt werden.
+        /// Damit trotzdem ein Datum bei diesen Spielen steht, wird die Rndomisiert erzeugt
+        /// </summary>
+        /// <returns>Datum</returns>
+        private static DateTime GetRandomDate()
         {
             Random rnd = new Random();
 
@@ -186,16 +208,16 @@ namespace GameLibrary_Projekt
 
             return randomDate;
         }
-        public Game[] GetAllGames()
-        {
-            Game[] array = new Game[gamelist.Count];
+        //public Game[] GetAllGames()
+        //{
+        //    Game[] array = new Game[gamelist.Count];
 
-            for (int i = 0; i < gamelist.Count; i++)
-            {
+        //    for (int i = 0; i < gamelist.Count; i++)
+        //    {
 
-                array[i] = gamelist[i];
-            }
-            return array;
-        }
+        //        array[i] = gamelist[i];
+        //    }
+        //    return array;
+        //}
     }
 }

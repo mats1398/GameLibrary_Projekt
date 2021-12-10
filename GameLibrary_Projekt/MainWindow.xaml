@@ -140,7 +140,7 @@
 
                     </StackPanel>
 
-                    <DataGrid x:Name="SearchDataGrid" ItemsSource="{Binding gamelist}" IsReadOnly="True"  Background="Transparent" RowBackground="Transparent" Margin="0,0,0,20" FontSize="12" AutoGenerateColumns="False" GridLinesVisibility="None" AreRowDetailsFrozen="True" >
+                    <DataGrid x:Name="SearchDataGrid" ItemsSource="{Binding GameList}" IsReadOnly="True"  Background="Transparent" RowBackground="Transparent" Margin="0,0,0,20" FontSize="12" AutoGenerateColumns="False" GridLinesVisibility="None" AreRowDetailsFrozen="True" >
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Header="Add">
 

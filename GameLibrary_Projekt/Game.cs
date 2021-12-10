@@ -20,6 +20,11 @@ namespace GameLibrary_Projekt
         public string Genre { get; set; }
         public bool IsPublished { get; set; } 
         public string  Comment { get; set; }
+
+        /// <summary>
+        /// Der Nutzer kann die Funktion "Save" nutzen, um seine Spiele in einer Textdatei zu speichern. Damit diese geordnet dargestellt werden, wurde die ToString Methode genutzt
+        /// </summary>
+        /// <returns>String mit allen Informationen des Spiels.</returns>
         public override string ToString()
         {
             
