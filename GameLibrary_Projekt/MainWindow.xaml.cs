@@ -21,6 +21,10 @@ namespace GameLibrary_Projekt
         }
         private string pfad = @"c:..\SavedGames.txt";
 
+        /// <summary>
+        /// Die App wird durch ein durchgänginges Mausklicken verschoben.
+        /// </summary>
+       
         private void MoveApp(object sender, MouseButtonEventArgs e)
         {
             if (e.LeftButton == MouseButtonState.Pressed)
@@ -30,11 +34,17 @@ namespace GameLibrary_Projekt
             }
         }
 
-       
+       /// <summary>
+       /// Durch den Button "-" oben rechts in der Ecke, wird diese Methode aufgerufen und die App wird minimiert
+       /// </summary>
+      
         private void Minimize(object sender, RoutedEventArgs e)
         {
             this.WindowState = WindowState.Minimized;
         }
+        /// <summary>
+        /// Durch den Button "x" oben rechts in der Ecke, wird diese Methode aufgerufen und die App schließt sich. Bevor die App sich schließt, erscheint eine Messagebox, ob die App wirklich geschlossen werden soll
+        /// </summary>
         private void ShutDown(object sender, RoutedEventArgs e)
         {
             if (MessageBox.Show("Wollen Sie die App wirklich schließen?", "Programm schließen", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
@@ -48,13 +58,19 @@ namespace GameLibrary_Projekt
 
 
         }
-
+        /// <summary>
+        /// Die Ansicht in der App wird mit dieser Methode von dem PersonalGrid auf das SearchGrid gewechselt. Diese Methode wird durch den Knopf SearchGames ausgelöst
+        /// </summary>
+      
         private void ChangeToSearchGames(object sender, RoutedEventArgs e)
         {
             Personal.Visibility = Visibility.Collapsed;
             GridSearch.Visibility = Visibility.Visible;
             SavePersonalListButton.Visibility = Visibility.Collapsed;
         }
+        /// <summary>
+        ///  Die Ansicht in der App wird mit dieser Methode von dem SearchGrid auf das PersonalGrid gewechselt. Diese Methode wird durch den Knopf Your Games ausgelöst
+        /// </summary>
 
         private void ChangeToPersonalGames(object sender, RoutedEventArgs e)
         {
@@ -63,13 +79,18 @@ namespace GameLibrary_Projekt
             SavePersonalListButton.Visibility = Visibility.Visible;
 
         }
+        /// <summary>
+        /// Diese Methode wird aufgerufen, wenn sich in einer Zeile im PersonalDataGrid was geändert hat. Da dadurch die Textdatei SavedGames.txt angepasst werden muss, wird die ChangePersonalGame Methode aufgerufen
+        /// </summary>
 
         private void Personal_RowEditEnding(object sender, System.Windows.Controls.DataGridRowEditEndingEventArgs e)
         {
-            Game newgame = (Game)e.Row.DataContext;
             ChangePersonalGame();
             
         }
+        /// <summary>
+        /// Diese Methode ist dafür da, um die vorhandene SavedGames.txt mit den neuen Inhalten des DataGrids zu überschreiben. Dadurch wird gegeben, dass die Änderungen der Daten gespeichert werden.
+        /// </summary>
         private void ChangePersonalGame()
         {
             var list = Games.PersonallyList;
@@ -80,8 +101,12 @@ namespace GameLibrary_Projekt
                 newList += $"{list[i].Titel},{list[i].Platform},{list[i].ReleaseDate:MMMM dd, yyyy},{list[i].GameDetails},{list[i].Score},{list[i].Review} <{list[i].Comment} \n";
             }
             File.WriteAllText(pfad, newList);
-        }       
-
+        }
+        /// <summary>
+        /// In dieser Zeile wird geprüft, ob der Nutzer eine Zeile im DataGrid gelöscht hat. Wenn dies zutrifft, wird de DeleteGame Methode aufgerúfen und der SelectedItem des PersonalDataGrids übergeben 
+        /// </summary>
+        /// <param name="sender">Wenn e.Key der entf Knopf ist + der "sender" Typ == DataGridCell, wird die DeleteGame Methode aufgerufen</param>
+        /// <param name="e"> Wenn e.Key der entf Knopf ist + der "sender" Typ == DataGridCell, wird die DeleteGame Methode aufgerufen</param>
         private void PersonalDataGrid_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             string s = sender.GetType().Name;
@@ -104,6 +129,10 @@ namespace GameLibrary_Projekt
             
             
         }
+        /// <summary>
+        /// Diese Methode löscht ein Spiel aus der PersonalGames Liste
+        /// </summary>
+        /// <param name="game"> Wird der Methode übergeben. Das Spiel, welches den gleichen Titel und Gerne hat wird aus der List gelöscht bzw. nicht erneut reingeschrieben</param>
         private void DeleteGame(Game game)
         {
             var list = Games.PersonallyList;
@@ -116,10 +145,7 @@ namespace GameLibrary_Projekt
                 {
                     newList += $"{list[i].Titel},{list[i].Platform},{list[i].ReleaseDate:MMMM dd, yyyy},{list[i].GameDetails},{list[i].Score},{list[i].Review} <{list[i].Comment} \n";
                 }
-                //else
-                //{
-                //    Games.PersonallyList.Remove(game);
-                //}
+                
                 
                   
 
@@ -127,30 +153,28 @@ namespace GameLibrary_Projekt
             }
             File.WriteAllText(pfad, newList);
         }
-
-        private void SearchPersonally_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-            FilterorSearchChanged();
-           
-        }
+        
+        /// <summary>
+        /// Wird durch ein Verändern in der Suchleiste des GridSearch aufgerufen. Diese Methode ruft die FilterOrSearchChanged Methode auf. 
+        /// </summary>
 
         private void Search_TextChanged(object sender, TextChangedEventArgs e)
         {
             FilterorSearchChanged();
             
         }
-        private void ReleaseYearChanged(object sender, SelectionChangedEventArgs e)
+        /// <summary>
+        /// Wird durch ein Verändern eines Filters des Search Grids aufgerufen. Diese Methode ruft die FilterOrSearchChanged Methode auf. 
+        /// </summary
+        private void SearchFilterChanged(object sender, SelectionChangedEventArgs e)
         {
             FilterorSearchChanged();
         }
-        private void PlatformChanged(object sender, SelectionChangedEventArgs e)
-        {
-            FilterorSearchChanged();
-            
 
-
-        }
-
+        /// <summary>
+        /// Wird durch die "Add" Knöpfe in dem SearchDataGrid aufgerufen. Diese Methode speichert das ausgewählt Spiel in die PersonalList und in SavedGames.txt Datei
+        /// </summary>
+        
         private void AddGameToPersonal(object sender, RoutedEventArgs e)
         {
             Game game = (Game)SearchDataGrid.SelectedItem;
@@ -166,12 +190,14 @@ namespace GameLibrary_Projekt
             }
             else
             {
-                MessageBox.Show("You already have this Game in your Gibrary", "", MessageBoxButton.OK);
+                MessageBox.Show("You already have this Game in your Library", "", MessageBoxButton.OK);
                 
             }
             
         }
-
+        /// <summary>
+        /// Wenn ein sich ein Filter oder der Text in der Suchleiste des SearchGrids verändert, wird diese Methode aufgerufen. Diese Methode beinhaltet alle möglichen Kombinationen der Filter und der Suchleiste und verändert den Inhalt des DataGrids dementsprechend direkt
+        /// </summary>
         
         private void FilterorSearchChanged()
         {
@@ -287,21 +313,17 @@ namespace GameLibrary_Projekt
             {
                 SearchDataGrid.ItemsSource = null;
                 SearchDataGrid.ItemsSource = Games.GameList;
-            }
-
-
-
-
-
-
-
-       
+            }  
            
 
             
 
 
         }
+        /// <summary>
+        /// Alle Filter + die Suchleiste des SearchGrids wird zurückgesetzt. Dadurch werden die Einschränkungen der angezeigten Spiele entfernt und es sind wieder alle Spiele sichtbar
+        /// </summary>
+      
 
         private void ResetFilter(object sender, RoutedEventArgs e)
         {
@@ -311,26 +333,26 @@ namespace GameLibrary_Projekt
             SearchBox.Clear();
             SearchDataGrid.ItemsSource = null;
             SearchDataGrid.ItemsSource = Games.GameList;
+        }        
+
+        /// <summary>
+        /// Wird durch ein Verändern in der Suchleiste des PersonalDataGrids aufgerufen. Diese Methode ruft die FilterOrSearchChangedPersonal Methode auf. 
+        /// </summary>
+        private void Search_TextChangedPersonal(object sender, TextChangedEventArgs e) 
+        {
+            FilterorSearchChangedPersonal();
         }
-
-        
-
-       
-
-        private void PlatformChangedPersonal(object sender, SelectionChangedEventArgs e)
+        /// <summary>
+        /// Wird durch ein Verändern eines Filters des PersonalGrids aufgerufen. Diese Methode ruft die FilterOrSearchChanged Methode auf. 
+        /// </summary
+        private void PersonalFilterChanged(object sender, SelectionChangedEventArgs e)
         {
             FilterorSearchChangedPersonal();
         }
 
-        private void ReleaseYearChangedPesonal(object sender, SelectionChangedEventArgs e)
-        {
-            FilterorSearchChangedPersonal();
-        }
-
-        private void Search_TextChangedPersonal(object sender, TextChangedEventArgs e)
-        {
-            FilterorSearchChangedPersonal();
-        }
+        /// <summary>
+        /// Wenn ein sich ein Filter oder der Text in der Suchleiste des PersonalGrids verändert, wird diese Methode aufgerufen. Diese Methode beinhaltet alle möglichen Kombinationen der Filter und der Suchleiste und verändert den Inhalt des DataGrids dementsprechend direkt
+        /// </summary>
         private void FilterorSearchChangedPersonal()
         {
 
@@ -446,6 +468,9 @@ namespace GameLibrary_Projekt
                 PersonalDataGrid.ItemsSource = Games.PersonallyList;
             }
         }
+        /// <summary>
+        /// Alle Filter + die Suchleiste des PersonalGrids wird zurückgesetzt. Dadurch werden die Einschränkungen der angezeigten Spiele entfernt und es sind wieder alle Spiele sichtbar
+        /// </summary>
         private void ResetFilterPersonal(object sender, RoutedEventArgs e)
         {
             FilterPlatformPersonal.SelectedIndex = -1;
@@ -456,6 +481,11 @@ namespace GameLibrary_Projekt
             PersonalDataGrid.ItemsSource = Games.PersonallyList;
             
         }
+        /// <summary>
+        /// Speichert alle Spiele die sich in der PersonallyList befinden ab indem die Methode, eine Textdatei erstellt und dort die wichtigsten Spieleinfomationen reinschreibt.
+        /// Wird durch den Save Knopf ausgelöst
+        /// Der Nutzer kann durch einen Dialog, der sich öffnet, entscheiden wo er diese Datei speichern möchte.
+        /// </summary>      
 
         private void OnSavePersonalList(object sender, RoutedEventArgs e)
         {
@@ -485,6 +515,8 @@ namespace GameLibrary_Projekt
             }
             
         }
+
+        
     }
 
 }

@@ -122,11 +122,11 @@
 
 
                         <TextBlock Text="Plaform: " VerticalAlignment="Center" />
-                        <ComboBox  x:Name="FilterPlatform" Width="100" Height="20" ItemsSource="{StaticResource Platform}" SelectionChanged="PlatformChanged"/>
+                        <ComboBox  x:Name="FilterPlatform" Width="100" Height="20" ItemsSource="{StaticResource Platform}" SelectionChanged="SearchFilterChanged"/>
                         <TextBlock Text="Genre: " VerticalAlignment="Center" Margin="20,0,0,0"/>
-                        <ComboBox x:Name="FilterGenre" Width="100" Height="20"  SelectionChanged="PlatformChanged" ItemsSource="{StaticResource Genres}"/>
+                        <ComboBox x:Name="FilterGenre" Width="100" Height="20"  SelectionChanged="SearchFilterChanged" ItemsSource="{StaticResource Genres}"/>
                         <TextBlock x:Name="Release" Text="Release: " VerticalAlignment="Center" Margin="10,0,0,0"/>
-                        <ComboBox x:Name="FilterRelease" Height="20" Width="70" ItemsSource="{StaticResource ReleaseYears}" SelectionChanged="ReleaseYearChanged"/>
+                        <ComboBox x:Name="FilterRelease" Height="20" Width="70" ItemsSource="{StaticResource ReleaseYears}" SelectionChanged="SearchFilterChanged"/>
 
 
 
@@ -195,11 +195,11 @@
 
 
                         <TextBlock Text="Plaform: " VerticalAlignment="Center" />
-                        <ComboBox  x:Name="FilterPlatformPersonal" Width="100" Height="20" ItemsSource="{StaticResource Platform}" SelectionChanged="PlatformChangedPersonal"/>
+                        <ComboBox  x:Name="FilterPlatformPersonal" Width="100" Height="20" ItemsSource="{StaticResource Platform}" SelectionChanged="PersonalFilterChanged"/>
                         <TextBlock Text="Genre: " VerticalAlignment="Center" Margin="20,0,0,0"/>
-                        <ComboBox x:Name="FilterGenrePersonal" Width="100" Height="20"  SelectionChanged="PlatformChangedPersonal" ItemsSource="{StaticResource Genres}"/>
+                        <ComboBox x:Name="FilterGenrePersonal" Width="100" Height="20"  SelectionChanged="PersonalFilterChanged" ItemsSource="{StaticResource Genres}"/>
                         <TextBlock  Text="Release: " VerticalAlignment="Center" Margin="10,0,0,0"/>
-                        <ComboBox x:Name="FilterReleasePersonal" Height="20" Width="70" ItemsSource="{StaticResource ReleaseYears}" SelectionChanged="ReleaseYearChangedPesonal"/>
+                        <ComboBox x:Name="FilterReleasePersonal" Height="20" Width="70" ItemsSource="{StaticResource ReleaseYears}" SelectionChanged="PersonalFilterChanged"/>
 
                         <Button Content="Reset Filter" Background="Transparent"  Height="30" HorizontalAlignment="Right" Margin="30,0" Click="ResetFilterPersonal"/>
 
