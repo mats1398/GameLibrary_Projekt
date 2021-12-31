@@ -6,13 +6,7 @@ namespace GameLibraryNUnitTest
 {
     public class Tests
     {
-        [SetUp]
-        public void Setup()
-        {
-            //Arrange
-
-        }
-
+       
         [Test]
         public void GetGameList()
         {
@@ -27,6 +21,8 @@ namespace GameLibraryNUnitTest
 
             Assert.IsNotNull(list);
         }
+
+        //--> diese beiden Tests wurden auskommentiert, da die Methoden auf private gesetzt worden sind
         //[Test]
         //public void GetGenre()
         //{
