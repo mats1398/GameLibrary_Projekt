@@ -13,6 +13,7 @@
         <local:Games/>
     </Window.DataContext>
     <Window.Resources>
+        <!--Array für die Filter wurden hier erstellt-->
         <x:Array x:Key="Platform" Type="sys:String">
             <sys:String>3DS</sys:String>
             <sys:String>DS</sys:String>
@@ -83,9 +84,7 @@
     <Border BorderThickness="0" CornerRadius="19" MouseDown="MoveApp" Background="#FFFFF0" MinHeight="450" MinWidth="800" >
         <DockPanel>
             <DockPanel Background="#698B69" DockPanel.Dock="Top" Height="23"  >
-                <!--<TextBlock  HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="Red" Height="27" >
-                   <LineBreak/> Your <LineBreak/> Logo
-                </TextBlock>-->
+
                 <Button  DockPanel.Dock="Right" Width="19" Height="23"  BorderThickness="0" Background="Transparent" FontSize="30" VerticalAlignment="Bottom"   Click="ShutDown"  Cursor="Hand" RenderTransformOrigin="0.474,0.362">
                     <TextBlock Text="X" VerticalAlignment="Center" Height="42"/>
                 </Button>
@@ -112,13 +111,14 @@
 
             </StackPanel >
 
+            <!--Grid Search. Mit diesem Grid starten die App. Durch die Buttons werden die Grids durch die Visibility ausgetauscht. Dies hat den Nutzen, dass der Nutzer schnell die Seite wechseln kann, ohne das der Zustand in dem sich das Grid befand löscht und neulädt-->
+            
             <Grid x:Name="GridSearch" Visibility="Visible">
                 <DockPanel>
                     <StackPanel DockPanel.Dock="Top" Height="50" Margin="10"  Orientation="Horizontal">
                         <TextBlock Text="Search: " VerticalAlignment="Center" Margin="0,17" />
                         <TextBox Name ="SearchBox" VerticalAlignment="Center" Margin="5,10" Width="90" Background="LightGray" TextChanged="Search_TextChanged"/>
 
-                        <!--<Image Source="/Pictograms/search.png" Height="20"  Margin="10,0" Width="22" />-->
 
 
                         <TextBlock Text="Plaform: " VerticalAlignment="Center" />
@@ -142,21 +142,10 @@
 
                     <DataGrid x:Name="SearchDataGrid" ItemsSource="{Binding GameList}" IsReadOnly="True"  Background="Transparent" RowBackground="Transparent" Margin="0,0,0,20" FontSize="12" AutoGenerateColumns="False" GridLinesVisibility="None" AreRowDetailsFrozen="True" >
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="Add">
 
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Button Click="AddGameToPersonal" Content="Add"/>
-
-
-
-
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-
-                            </DataGridTemplateColumn>
                             <DataGridTextColumn Header="Gametitel" Binding="{Binding Titel}" Width="*"/>
-                            <!--<DataGridCheckBoxColumn Header="IsPublished" Binding="{Binding IsPublished}" IsReadOnly="True"/>-->
+
+
                             <DataGridTextColumn Header="ReleaseDate" Binding="{Binding ReleaseDate, StringFormat=dd/M/yyyy}" />
                             <DataGridTextColumn Header="Platform" Binding="{Binding Platform}"/>
                             <DataGridTextColumn Header="Genre" Binding="{Binding Genre}"/>
@@ -177,21 +166,25 @@
 
                                         <TextBlock Text="{Binding GameDetails}" TextWrapping="Wrap" Width="450" Margin="20,0,0,0" />
                                         <TextBlock/>
+
                                     </StackPanel>
+                                    <Button Click="AddGameToPersonal" Content="Add to 'Your Games'" Margin="20"/>
                                 </StackPanel>
                             </DataTemplate>
                         </DataGrid.RowDetailsTemplate>
                     </DataGrid>
                 </DockPanel>
             </Grid>
-
+            
+            
+            <!--Dieses Grid wird durch den Button "Your Games" Visible-->
             <Grid x:Name="Personal" Visibility="Collapsed">
                 <DockPanel>
                     <StackPanel DockPanel.Dock="Top" Height="50" Margin="10"  Orientation="Horizontal">
                         <TextBlock Text="Search: " VerticalAlignment="Center" Margin="0,17" />
                         <TextBox Name ="SearchBoxPersonal" VerticalAlignment="Center" Margin="5,10" Width="90" Background="LightGray" TextChanged="Search_TextChangedPersonal"/>
 
-                        <!--<Image Source="/Pictograms/search.png" Height="20"  Margin="10,0" Width="22" />-->
+
 
 
                         <TextBlock Text="Plaform: " VerticalAlignment="Center" />
@@ -211,7 +204,18 @@
                     <DataGrid x:Name="PersonalDataGrid" AutoGenerateColumns="False" ItemsSource="{Binding PersonallyList}" Background="Transparent" RowBackground="Transparent" Margin="0,0,0,20" FontSize="12" GridLinesVisibility="None" RowEditEnding="Personal_RowEditEnding"  PreviewKeyDown="PersonalDataGrid_PreviewKeyDown">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Gametitel" Binding="{Binding Titel, UpdateSourceTrigger=PropertyChanged}" />
-                            <DataGridTextColumn Header="ReleaseDate" Binding="{Binding ReleaseDate, StringFormat=dd/M/yyyy, UpdateSourceTrigger=PropertyChanged}" />
+                            <DataGridTemplateColumn Header="ReleaseDate">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding ReleaseDate, StringFormat=dd/M/yyyy, UpdateSourceTrigger=PropertyChanged}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                                <DataGridTemplateColumn.CellEditingTemplate>
+                                    <DataTemplate>
+                                        <DatePicker SelectedDate="{Binding ReleaseDate,  StringFormat=dd/M/yyyy, UpdateSourceTrigger=PropertyChanged}" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellEditingTemplate>
+                            </DataGridTemplateColumn>
 
                             <DataGridTextColumn Header="Platform" Binding="{Binding Platform, UpdateSourceTrigger=PropertyChanged}"/>
                             <DataGridTextColumn Header="Genre" Binding="{Binding Genre, UpdateSourceTrigger=PropertyChanged}"/>
@@ -219,7 +223,7 @@
                             <DataGridTextColumn Header="Review" Binding="{Binding Review, UpdateSourceTrigger=PropertyChanged}"/>
                             <DataGridTextColumn Header="Comment" Binding="{Binding Comment, UpdateSourceTrigger=PropertyChanged}" Width="*"/>
                         </DataGrid.Columns>
-                       
+
                     </DataGrid>
                 </DockPanel>
             </Grid>

@@ -18,7 +18,7 @@ namespace GameLibrary_Projekt
         public string Image { get; set; }
 
         public string Genre { get; set; }
-        public bool IsPublished { get; set; } 
+        
         public string  Comment { get; set; }
 
         /// <summary>
