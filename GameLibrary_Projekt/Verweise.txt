@@ -1,0 +1,5 @@
+Verweise:
+Die Piktogramme, die in der App zu sehen sind, wurde heruntergeladen bei:
+https://www.flaticon.com/
+Die Funktionen des DataGrids wurden teilweise übernommen bzw. sind inspiriert von folgendem YoutubeKanal:
+https://www.youtube.com/watch?v=yUMEGOo2GR4&list=PLEKPb3_Ne8oofAtWXwuHgCew4ARna5aqL&index=34

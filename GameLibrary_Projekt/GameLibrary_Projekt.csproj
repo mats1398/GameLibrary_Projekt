@@ -154,5 +154,8 @@
   <ItemGroup>
     <Resource Include="Pictograms\Save.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Verweise.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
