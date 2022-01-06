@@ -18,4 +18,8 @@
     <ProjectReference Include="..\GameLibrary_Projekt\GameLibrary_Projekt.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="K\" />
+  </ItemGroup>
+
 </Project>

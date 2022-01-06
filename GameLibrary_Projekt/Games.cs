@@ -208,16 +208,6 @@ namespace GameLibrary_Projekt
 
             return randomDate;
         }
-        //public Game[] GetAllGames()
-        //{
-        //    Game[] array = new Game[gamelist.Count];
-
-        //    for (int i = 0; i < gamelist.Count; i++)
-        //    {
-
-        //        array[i] = gamelist[i];
-        //    }
-        //    return array;
-        //}
+        
     }
 }

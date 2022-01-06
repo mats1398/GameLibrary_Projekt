@@ -1,6 +1,6 @@
 using GameLibrary_Projekt;
 using NUnit.Framework;
-using System;
+
 
 namespace GameLibraryNUnitTest
 {
@@ -8,14 +8,14 @@ namespace GameLibraryNUnitTest
     {
        
         [Test]
-        public void GetGameList()
+        public void GetGameList() //bestanden
         {
             var list = Games.GameList;
             Assert.AreEqual("The Legend of Zelda: Ocarina of Time", list[0].Titel);
         }
 
         [Test]
-        public void GetPersonalList()
+        public void GetPersonalList() // bestanden
         {
             var list = Games.PersonallyList;
 

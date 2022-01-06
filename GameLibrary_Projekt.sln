@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLibrary_Projekt", "GameLibrary_Projekt\GameLibrary_Projekt.csproj", "{09AD799E-6EFF-49B6-8953-F54523812A33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameLibraryNUnitTest", "GameLibraryNUnitTest\GameLibraryNUnitTest.csproj", "{42D4C40B-C69E-4B41-8616-EE74E33321F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameLibraryNUnitTest", "GameLibraryNUnitTest\GameLibraryNUnitTest.csproj", "{42D4C40B-C69E-4B41-8616-EE74E33321F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
