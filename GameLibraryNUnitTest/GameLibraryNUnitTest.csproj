@@ -7,6 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="K\**" />
+    <EmbeddedResource Remove="K\**" />
+    <None Remove="K\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
     <PackageReference Include="NUnit" Version="3.13.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
@@ -16,10 +22,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GameLibrary_Projekt\GameLibrary_Projekt.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="K\" />
   </ItemGroup>
 
 </Project>
