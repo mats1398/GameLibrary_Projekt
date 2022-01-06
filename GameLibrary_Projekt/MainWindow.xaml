@@ -6,7 +6,7 @@
          xmlns:sys="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:GameLibrary_Projekt"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="900" Icon="/Pictograms/Icon.png"
+        Title="MainWindow" Height="600" Width="900" Icon="/Pictograms/Icon.png" MinWidth="900"  
 
         Background="Transparent" AllowsTransparency="True"   WindowStyle="None" WindowStartupLocation="CenterScreen"  ResizeMode="CanResizeWithGrip">
     <Window.DataContext>
